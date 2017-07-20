@@ -1,6 +1,8 @@
-﻿namespace DotNetCoreAppExample.Domain.Core.Interfaces
+﻿using System;
+
+namespace DotNetCoreAppExample.Domain.Core.Interfaces
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
         void Commit();
     }

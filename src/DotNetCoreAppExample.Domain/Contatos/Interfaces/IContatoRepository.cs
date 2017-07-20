@@ -7,8 +7,8 @@ namespace DotNetCoreAppExample.Domain.Contatos.Interfaces
 {
     public interface IContatoRepository : IRepositoryBase<Contato>
     {
-        Contato ObterPorEmail(string email);
-        ICollection<Contato> ObterAtivos();
+        Contato ObterContatoPorEmail(string email);
+        ICollection<Contato> ObterContatosAtivos();
 
         Endereco ObterEnderecoPorId(Guid enderecoId);
         Endereco AdicionarEndereco(Endereco endereco);

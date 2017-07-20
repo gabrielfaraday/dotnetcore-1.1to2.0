@@ -9,15 +9,27 @@ namespace DotNetCoreAppExample.Infra.Data.Mappings
     {
         public override void Map(EntityTypeBuilder<Contato> builder)
         {
+            builder.HasKey(c => c.Id);
+
             builder.Property(c => c.Nome)
                .HasColumnType("varchar(150)")
                .IsRequired();
 
-            builder.Ignore(c => c.ValidationResult);
+            builder.Property(c => c.Email)
+               .HasColumnType("varchar(256)")
+               .IsRequired();
 
+            builder.Property(c => c.DataCadastro)
+                .HasColumnType("datetime")
+                .IsRequired();
+
+            builder.Property(c => c.Ativo)
+               .IsRequired();
+
+            builder.Ignore(c => c.ValidationResult);
             builder.Ignore(c => c.CascadeMode);
 
-            builder.ToTable("Categorias");
+            builder.ToTable("Contatos");
         }
     }
 }

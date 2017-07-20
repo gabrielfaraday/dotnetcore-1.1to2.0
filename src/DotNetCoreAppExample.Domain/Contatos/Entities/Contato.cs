@@ -13,7 +13,6 @@ namespace DotNetCoreAppExample.Domain.Contatos.Entities
             Nome = nome;
             Email = email;
             Ativo = true;
-            DataCadastro = DateTime.Now;
         }
 
         // Construtor para o EF
@@ -23,7 +22,6 @@ namespace DotNetCoreAppExample.Domain.Contatos.Entities
         public string Email { get; private set; }
         public DateTime DataCadastro { get; private set; }
         public bool Ativo { get; private set; }
-        public Guid? EnderecoId { get; private set; }
 
         // EF propriedades de navegacao
         public virtual Endereco Endereco { get; private set; }

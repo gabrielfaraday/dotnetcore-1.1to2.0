@@ -14,12 +14,12 @@ namespace DotNetCoreAppExample.Domain.Contatos.Services
 
         public ICollection<Contato> ObterAtivos()
         {
-            return _repository.ObterAtivos();
+            return _repository.ObterContatosAtivos();
         }
 
         public Contato ObterPorEmail(string email)
         {
-            return _repository.ObterPorEmail(email);
+            return _repository.ObterContatoPorEmail(email);
         }
 
         public Telefone AdicionarTelefone(Telefone telefone)
