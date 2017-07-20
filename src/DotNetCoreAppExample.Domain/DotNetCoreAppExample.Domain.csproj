@@ -17,4 +17,8 @@
     <PackageReference Include="FluentValidation" Version="7.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DotNetCoreAppExample.Domain.Core\DotNetCoreAppExample.Domain.Core.csproj" />
+  </ItemGroup>
+
 </Project>

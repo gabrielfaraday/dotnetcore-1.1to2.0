@@ -17,7 +17,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5.1-Data", "5.1-Data", "{E9
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5.2-CrossCutting", "5.2-CrossCutting", "{BEC744E1-1493-456E-869C-31C757824623}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCoreAppExample.Domain", "src\DotNetCoreAppExample.Domain\DotNetCoreAppExample.Domain.csproj", "{0508044A-25C4-4DD0-AE97-AD946AA431DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreAppExample.Domain", "src\DotNetCoreAppExample.Domain\DotNetCoreAppExample.Domain.csproj", "{0508044A-25C4-4DD0-AE97-AD946AA431DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCoreAppExample.Infra.Data", "src\DotNetCoreAppExample.Infra.Data\DotNetCoreAppExample.Infra.Data.csproj", "{7719051B-ADB9-4391-8FA7-3194B4AF6361}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCoreAppExample.Domain.Core", "src\DotNetCoreAppExample.Domain.Core\DotNetCoreAppExample.Domain.Core.csproj", "{FC528613-EC9B-4173-839D-22DD29205430}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +33,14 @@ Global
 		{0508044A-25C4-4DD0-AE97-AD946AA431DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0508044A-25C4-4DD0-AE97-AD946AA431DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0508044A-25C4-4DD0-AE97-AD946AA431DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7719051B-ADB9-4391-8FA7-3194B4AF6361}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7719051B-ADB9-4391-8FA7-3194B4AF6361}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7719051B-ADB9-4391-8FA7-3194B4AF6361}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7719051B-ADB9-4391-8FA7-3194B4AF6361}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC528613-EC9B-4173-839D-22DD29205430}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC528613-EC9B-4173-839D-22DD29205430}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC528613-EC9B-4173-839D-22DD29205430}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC528613-EC9B-4173-839D-22DD29205430}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -37,5 +49,7 @@ Global
 		{E9C5CD82-3FF9-4614-AA2C-CB549FCE5765} = {58556D1B-D3E0-478B-8A1C-D6B0F19AEC5B}
 		{BEC744E1-1493-456E-869C-31C757824623} = {58556D1B-D3E0-478B-8A1C-D6B0F19AEC5B}
 		{0508044A-25C4-4DD0-AE97-AD946AA431DC} = {C1BCFD86-5131-4447-9D76-CE263C281BF6}
+		{7719051B-ADB9-4391-8FA7-3194B4AF6361} = {E9C5CD82-3FF9-4614-AA2C-CB549FCE5765}
+		{FC528613-EC9B-4173-839D-22DD29205430} = {C1BCFD86-5131-4447-9D76-CE263C281BF6}
 	EndGlobalSection
 EndGlobal
