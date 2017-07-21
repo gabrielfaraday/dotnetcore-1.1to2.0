@@ -6,10 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using DotNetCoreAppExample.Web.Data;
-using DotNetCoreAppExample.Web.Models;
-using DotNetCoreAppExample.Web.Services;
 using DotNetCoreAppExample.Infra.CrossCutting.IoC;
+using DotNetCoreAppExample.Infra.CrossCutting.Identity.Data;
+using DotNetCoreAppExample.Infra.CrossCutting.Identity.Models;
 
 namespace DotNetCoreAppExample.Web
 {
@@ -47,10 +46,6 @@ namespace DotNetCoreAppExample.Web
 
             services.AddMvc();
             services.AddAutoMapper();
-
-            // Add application services.
-            services.AddTransient<IEmailSender, AuthMessageSender>();
-            services.AddTransient<ISmsSender, AuthMessageSender>();
 
             DependencyInjectionBootStrapper.RegisterServices(services);
         }

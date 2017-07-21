@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -9,9 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using DotNetCoreAppExample.Web.Models;
-using DotNetCoreAppExample.Web.Models.AccountViewModels;
-using DotNetCoreAppExample.Web.Services;
+using DotNetCoreAppExample.Infra.CrossCutting.Identity.Models;
+using DotNetCoreAppExample.Infra.CrossCutting.Identity.Services;
+using DotNetCoreAppExample.Infra.CrossCutting.Identity.Models.AccountViewModels;
 
 namespace DotNetCoreAppExample.Web.Controllers
 {

@@ -4,6 +4,7 @@ using DotNetCoreAppExample.Application.Services;
 using DotNetCoreAppExample.Domain.Contatos.Interfaces;
 using DotNetCoreAppExample.Domain.Contatos.Services;
 using DotNetCoreAppExample.Domain.Core.Interfaces;
+using DotNetCoreAppExample.Infra.CrossCutting.Identity.Services;
 using DotNetCoreAppExample.Infra.Data;
 using DotNetCoreAppExample.Infra.Data.Context;
 using DotNetCoreAppExample.Infra.Data.Repositories;
@@ -32,9 +33,9 @@ namespace DotNetCoreAppExample.Infra.CrossCutting.IoC
             services.AddScoped<MainContext>();
 
             //Infra.Identity
-            //services.AddTransient<IEmailSender, AuthMessageSender>();
-            //services.AddTransient<ISmsSender, AuthMessageSender>();
             //services.AddScoped<IUser, AspNetUser>();
+            services.AddTransient<IEmailSender, AuthMessageSender>();
+            services.AddTransient<ISmsSender, AuthMessageSender>();
 
             //Infra.Filtros
             //services.AddScoped<ILogger<GlobalExceptionHandlingFilter>, Logger<GlobalExceptionHandlingFilter>>();

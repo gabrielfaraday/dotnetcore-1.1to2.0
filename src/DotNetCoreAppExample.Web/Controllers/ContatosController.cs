@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using DotNetCoreAppExample.Application.ViewModels;
 using DotNetCoreAppExample.Application.Interfaces;
 

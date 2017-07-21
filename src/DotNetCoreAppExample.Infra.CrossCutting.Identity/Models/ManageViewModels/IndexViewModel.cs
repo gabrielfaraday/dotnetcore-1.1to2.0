@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 
-namespace DotNetCoreAppExample.Web.Models.ManageViewModels
+namespace DotNetCoreAppExample.Infra.CrossCutting.Identity.Models.ManageViewModels
 {
     public class IndexViewModel
     {

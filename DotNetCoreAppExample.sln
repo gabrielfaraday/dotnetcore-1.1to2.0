@@ -27,7 +27,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreAppExample.Web", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreAppExample.Application", "src\DotNetCoreAppExample.Application\DotNetCoreAppExample.Application.csproj", "{46DF0B9B-9A92-4413-A38C-06F280902C11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCoreAppExample.Infra.CrossCutting.IoC", "src\DotNetCoreAppExample.Infra.CrossCutting.IoC\DotNetCoreAppExample.Infra.CrossCutting.IoC.csproj", "{C5008EC3-1BF8-4A43-8D98-33E083C39681}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreAppExample.Infra.CrossCutting.IoC", "src\DotNetCoreAppExample.Infra.CrossCutting.IoC\DotNetCoreAppExample.Infra.CrossCutting.IoC.csproj", "{C5008EC3-1BF8-4A43-8D98-33E083C39681}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCoreAppExample.Infra.CrossCutting.Identity", "src\DotNetCoreAppExample.Infra.CrossCutting.Identity\DotNetCoreAppExample.Infra.CrossCutting.Identity.csproj", "{51E6C24D-7DB7-4B02-B667-BE76C2E41F56}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,10 @@ Global
 		{C5008EC3-1BF8-4A43-8D98-33E083C39681}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5008EC3-1BF8-4A43-8D98-33E083C39681}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5008EC3-1BF8-4A43-8D98-33E083C39681}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51E6C24D-7DB7-4B02-B667-BE76C2E41F56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51E6C24D-7DB7-4B02-B667-BE76C2E41F56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51E6C24D-7DB7-4B02-B667-BE76C2E41F56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51E6C24D-7DB7-4B02-B667-BE76C2E41F56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,5 +78,6 @@ Global
 		{04D7817B-B4BB-499A-9665-9B761F2646E2} = {07844CBC-C098-44AB-B52C-D673DDD4BAA3}
 		{46DF0B9B-9A92-4413-A38C-06F280902C11} = {529452B3-EA81-475A-B296-41B0B9D3D033}
 		{C5008EC3-1BF8-4A43-8D98-33E083C39681} = {BEC744E1-1493-456E-869C-31C757824623}
+		{51E6C24D-7DB7-4B02-B667-BE76C2E41F56} = {BEC744E1-1493-456E-869C-31C757824623}
 	EndGlobalSection
 EndGlobal
