@@ -4,10 +4,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DotNetCoreAppExample.Application.ViewModels
 {
-    public class NovoTelefoneViewModel : TelefoneViewModel
-    {
-    }
-
     public class TelefoneViewModel
     {
         public TelefoneViewModel()

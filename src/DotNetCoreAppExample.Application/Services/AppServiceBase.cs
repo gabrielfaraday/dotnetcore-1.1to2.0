@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace DotNetCoreAppExample.Application.Services
 {
-    public abstract class AppServiceBase<TEntity, TEntityViewModel, TNewEntityViewModel, TService> : IAppServiceBase<TEntityViewModel, TNewEntityViewModel> where TEntity : EntityBase<TEntity> where TEntityViewModel : class where TNewEntityViewModel : TEntityViewModel where TService : IServiceBase<TEntity>
+    public abstract class AppServiceBase<TEntity, TEntityViewModel, TService> : IAppServiceBase<TEntityViewModel> where TEntity : EntityBase<TEntity> where TEntityViewModel : class where TService : IServiceBase<TEntity>
     {
         protected readonly IUnitOfWork _uow;
         protected readonly TService _service;
@@ -20,14 +20,14 @@ namespace DotNetCoreAppExample.Application.Services
             _mapper = mapper;
         }
 
-        public virtual TNewEntityViewModel Add(TNewEntityViewModel entityViewModel)
+        public virtual TEntityViewModel Add(TEntityViewModel entityViewModel)
         {
             var entity = _service.Add(_mapper.Map<TEntity>(entityViewModel));
 
             if (entity.ValidationResult.IsValid)
                 Commit();
 
-            return _mapper.Map<TNewEntityViewModel>(entity);
+            return _mapper.Map<TEntityViewModel>(entity);
         }
 
         public virtual TEntityViewModel FindById(Guid id)

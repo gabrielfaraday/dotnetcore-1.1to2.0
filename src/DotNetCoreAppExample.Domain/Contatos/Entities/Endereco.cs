@@ -6,9 +6,9 @@ namespace DotNetCoreAppExample.Domain.Contatos.Entities
 {
     public class Endereco : EntityBase<Endereco>
     {
-        public Endereco(Guid? id, string logradouro, string numero, string complemento, string bairro, string cep, string cidade, string estado, Guid? contatoId)
+        public Endereco(Guid id, string logradouro, string numero, string complemento, string bairro, string cep, string cidade, string estado)
         {
-            Id = id ?? Guid.NewGuid();
+            Id = id;
             Logradouro = logradouro;
             Numero = numero;
             Complemento = complemento;
@@ -16,7 +16,6 @@ namespace DotNetCoreAppExample.Domain.Contatos.Entities
             CEP = cep;
             Cidade = cidade;
             Estado = estado;
-            ContatoId = contatoId;
         }
 
         // Construtor para o EF
@@ -29,7 +28,6 @@ namespace DotNetCoreAppExample.Domain.Contatos.Entities
         public string CEP { get; private set; }
         public string Cidade { get; private set; }
         public string Estado { get; private set; }
-        public Guid? ContatoId { get; private set; }
 
         // EF propriedades de navegacao
         public virtual Contato Contato { get; private set; }

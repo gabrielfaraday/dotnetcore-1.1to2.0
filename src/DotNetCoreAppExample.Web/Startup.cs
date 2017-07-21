@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -12,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using DotNetCoreAppExample.Web.Data;
 using DotNetCoreAppExample.Web.Models;
 using DotNetCoreAppExample.Web.Services;
+using DotNetCoreAppExample.Infra.CrossCutting.IoC;
 
 namespace DotNetCoreAppExample.Web
 {
@@ -48,10 +46,13 @@ namespace DotNetCoreAppExample.Web
                 .AddDefaultTokenProviders();
 
             services.AddMvc();
+            services.AddAutoMapper();
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+
+            DependencyInjectionBootStrapper.RegisterServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,7 +65,7 @@ namespace DotNetCoreAppExample.Web
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
-                app.UseBrowserLink();
+                //app.UseBrowserLink();
             }
             else
             {
@@ -72,7 +73,6 @@ namespace DotNetCoreAppExample.Web
             }
 
             app.UseStaticFiles();
-
             app.UseIdentity();
 
             // Add external authentication middleware below. To configure them please see https://go.microsoft.com/fwlink/?LinkID=532715

@@ -84,7 +84,7 @@ namespace DotNetCoreAppExample.Infra.Data.Repositories
             var sql = @"SELECT *
                           FROM Contatos C
                      LEFT JOIN Telefones T ON C.Id = T.ContatoId
-                     LEFT JOIN Enderecos E ON C.Id = E.ContatoId
+                     LEFT JOIN Enderecos E ON C.EnderecoId = E.Id
                       WHERE C.Id = @pid";
 
             var evento = Db.Database.GetDbConnection().Query<Contato, Telefone, Endereco, Contato>(sql,
@@ -100,13 +100,6 @@ namespace DotNetCoreAppExample.Infra.Data.Repositories
                 }, new { pid = id });
 
             return evento.FirstOrDefault();
-        }
-
-        public override void Delete(Guid id)
-        {
-            var contato = FindById(id);
-            contato.RemoverContato();
-            Update(contato);
         }
 
         #endregion [ Overrides ]

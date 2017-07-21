@@ -12,6 +12,30 @@ namespace DotNetCoreAppExample.Domain.Contatos.Services
         {
         }
 
+        public override Contato Add(Contato contato)
+        {
+            if (string.IsNullOrWhiteSpace(contato.Endereco.Logradouro) &&
+                    string.IsNullOrWhiteSpace(contato.Endereco.Bairro) &&
+                        string.IsNullOrWhiteSpace(contato.Endereco.Cidade) &&
+                            string.IsNullOrWhiteSpace(contato.Endereco.CEP))
+                contato.LimparEndereco();
+
+            contato.AtivarContato();
+
+            return base.Add(contato);
+        }
+
+        public override Contato Update(Contato contato)
+        {
+            if (string.IsNullOrWhiteSpace(contato.Endereco.Logradouro) &&
+                    string.IsNullOrWhiteSpace(contato.Endereco.Bairro) &&
+                        string.IsNullOrWhiteSpace(contato.Endereco.Cidade) &&
+                            string.IsNullOrWhiteSpace(contato.Endereco.CEP))
+                contato.LimparEndereco();
+
+            return base.Update(contato);
+        }
+
         public ICollection<Contato> ObterAtivos()
         {
             return _repository.ObterContatosAtivos();

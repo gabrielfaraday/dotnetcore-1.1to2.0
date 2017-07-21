@@ -6,9 +6,9 @@ namespace DotNetCoreAppExample.Domain.Contatos.Entities
 {
     public class Telefone : EntityBase<Telefone>
     {
-        public Telefone(Guid? id, int ddd, string numero, Guid contatoId)
+        public Telefone(Guid id, int ddd, string numero, Guid contatoId)
         {
-            Id = id ?? Guid.NewGuid();
+            Id = id;
             DDD = ddd;
             Numero = numero;
             ContatoId = contatoId;

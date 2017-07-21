@@ -29,6 +29,11 @@ namespace DotNetCoreAppExample.Infra.Data.Mappings
             builder.Ignore(c => c.ValidationResult);
             builder.Ignore(c => c.CascadeMode);
 
+            builder.HasOne(c => c.Endereco)
+                .WithOne(e => e.Contato)
+                .HasForeignKey<Contato>(e => e.EnderecoId)
+                .IsRequired(false);
+
             builder.ToTable("Contatos");
         }
     }

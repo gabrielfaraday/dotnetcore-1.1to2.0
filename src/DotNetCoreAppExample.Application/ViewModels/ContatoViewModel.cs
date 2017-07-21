@@ -5,15 +5,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DotNetCoreAppExample.Application.ViewModels
 {
-    public class NovoContatoViewModel : ContatoViewModel
-    {
-        public NovoContatoViewModel()
-        {
-            Telefones = new List<TelefoneViewModel>();
-            Endereco = new EnderecoViewModel();
-        }
-    }
-
     public class ContatoViewModel
     {
         public ContatoViewModel()
@@ -42,6 +33,9 @@ namespace DotNetCoreAppExample.Application.ViewModels
 
         [ScaffoldColumn(false)]
         public bool Ativo { get; set; }
+
+        [ScaffoldColumn(false)]
+        public Guid? EnderecoId { get; set; }
 
         public ICollection<TelefoneViewModel> Telefones { get; set; }
 

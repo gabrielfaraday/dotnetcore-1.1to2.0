@@ -12,6 +12,7 @@
     <UserSecretsId>aspnet-DotNetCoreAppExample.Web-722a5095-010c-4723-9380-9eb06473e8f2</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="2.0.1" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="1.1.2" />
@@ -34,6 +35,8 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DotNetCoreAppExample.Application\DotNetCoreAppExample.Application.csproj" />
+    <ProjectReference Include="..\DotNetCoreAppExample.Infra.CrossCutting.IoC\DotNetCoreAppExample.Infra.CrossCutting.IoC.csproj" />
     <ProjectReference Include="..\DotNetCoreAppExample.Infra.Data\DotNetCoreAppExample.Infra.Data.csproj" />
   </ItemGroup>
 

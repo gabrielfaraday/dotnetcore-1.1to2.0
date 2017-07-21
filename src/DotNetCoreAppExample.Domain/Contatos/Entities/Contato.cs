@@ -7,9 +7,9 @@ namespace DotNetCoreAppExample.Domain.Contatos.Entities
 {
     public class Contato : EntityBase<Contato>
     {
-        public Contato(Guid? id, string nome, string email)
+        public Contato(Guid id, string nome, string email)
         {
-            Id = id ?? Guid.NewGuid();
+            Id = id;
             Nome = nome;
             Email = email;
             Ativo = true;
@@ -22,11 +22,22 @@ namespace DotNetCoreAppExample.Domain.Contatos.Entities
         public string Email { get; private set; }
         public DateTime DataCadastro { get; private set; }
         public bool Ativo { get; private set; }
+        public Guid? EnderecoId { get; private set; }
 
         // EF propriedades de navegacao
         public virtual Endereco Endereco { get; private set; }
         public virtual ICollection<Telefone> Telefones { get; set; }
-        
+
+        public void AtivarContato()
+        {
+            Ativo = true;
+        }
+
+        public void LimparEndereco()
+        {
+            Endereco = null;
+        }
+
         public void AtribuirEndereco(Endereco endereco)
         {
             if (!endereco.EstaValido()) return;
@@ -67,15 +78,16 @@ namespace DotNetCoreAppExample.Domain.Contatos.Entities
 
         private void ValidarEmail()
         {
-            RuleFor(c => c.Nome)
+            RuleFor(c => c.Email)
+                .Matches(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$").WithMessage("E-mail não é válido.")
                 .NotEmpty().WithMessage("Informe o e-mail do contato.")
-                .MaximumLength(256).WithMessage("O e-mail do contato deve no máximo 256 caracteres.")
-                .EmailAddress().WithMessage("E-mail não é válido.");
+                .MaximumLength(256).WithMessage("O e-mail do contato deve no máximo 256 caracteres.");
         }
 
         private void ValidarEndereco()
         {
-            if (Endereco.EstaValido()) return;
+            if (Endereco == null || Endereco.EstaValido())
+                return;
 
             foreach (var erro in Endereco.ValidationResult.Errors)
                 ValidationResult.Errors.Add(erro);
@@ -126,5 +138,28 @@ namespace DotNetCoreAppExample.Domain.Contatos.Entities
         //}
 
         #endregion  [ Validações ]
+
+        //public static class ContatoFactory
+        //{
+        //    public static Contato ContatoCompleto(Guid? id, string nome, string email, Endereco endereco)
+        //    {
+        //        var contato = new Contato
+        //        {
+        //            Id = id ?? Guid.NewGuid(),
+        //            Nome = nome,
+        //            Email = email,
+        //            Ativo = true,
+        //            Endereco = endereco
+        //        };
+
+        //        if (string.IsNullOrWhiteSpace(endereco.Logradouro) &&
+        //            string.IsNullOrWhiteSpace(endereco.Bairro) &&
+        //            string.IsNullOrWhiteSpace(endereco.Cidade) &&
+        //            string.IsNullOrWhiteSpace(endereco.CEP))
+        //            contato.Endereco = null;
+
+        //        return contato;
+        //    }
+        //}
     }
 }

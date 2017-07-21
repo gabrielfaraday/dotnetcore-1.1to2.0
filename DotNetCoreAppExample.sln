@@ -25,7 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreAppExample.Domain
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreAppExample.Web", "src\DotNetCoreAppExample.Web\DotNetCoreAppExample.Web.csproj", "{04D7817B-B4BB-499A-9665-9B761F2646E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCoreAppExample.Application", "src\DotNetCoreAppExample.Application\DotNetCoreAppExample.Application.csproj", "{46DF0B9B-9A92-4413-A38C-06F280902C11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreAppExample.Application", "src\DotNetCoreAppExample.Application\DotNetCoreAppExample.Application.csproj", "{46DF0B9B-9A92-4413-A38C-06F280902C11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCoreAppExample.Infra.CrossCutting.IoC", "src\DotNetCoreAppExample.Infra.CrossCutting.IoC\DotNetCoreAppExample.Infra.CrossCutting.IoC.csproj", "{C5008EC3-1BF8-4A43-8D98-33E083C39681}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{46DF0B9B-9A92-4413-A38C-06F280902C11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46DF0B9B-9A92-4413-A38C-06F280902C11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{46DF0B9B-9A92-4413-A38C-06F280902C11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5008EC3-1BF8-4A43-8D98-33E083C39681}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5008EC3-1BF8-4A43-8D98-33E083C39681}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5008EC3-1BF8-4A43-8D98-33E083C39681}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5008EC3-1BF8-4A43-8D98-33E083C39681}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -65,5 +71,6 @@ Global
 		{FC528613-EC9B-4173-839D-22DD29205430} = {C1BCFD86-5131-4447-9D76-CE263C281BF6}
 		{04D7817B-B4BB-499A-9665-9B761F2646E2} = {07844CBC-C098-44AB-B52C-D673DDD4BAA3}
 		{46DF0B9B-9A92-4413-A38C-06F280902C11} = {529452B3-EA81-475A-B296-41B0B9D3D033}
+		{C5008EC3-1BF8-4A43-8D98-33E083C39681} = {BEC744E1-1493-456E-869C-31C757824623}
 	EndGlobalSection
 EndGlobal

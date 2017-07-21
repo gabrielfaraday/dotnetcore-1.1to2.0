@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using DotNetCoreAppExample.Web.Models;
+using DotNetCoreAppExample.Application.ViewModels;
 
 namespace DotNetCoreAppExample.Web.Data
 {
@@ -22,5 +23,7 @@ namespace DotNetCoreAppExample.Web.Data
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
+
+        public DbSet<DotNetCoreAppExample.Application.ViewModels.ContatoViewModel> ContatoViewModel { get; set; }
     }
 }

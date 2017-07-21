@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace DotNetCoreAppExample.Application.Services
 {
-    public class ContatoAppService : AppServiceBase<Contato, ContatoViewModel, NovoContatoViewModel, IContatoService>, IContatoAppService
+    public class ContatoAppService : AppServiceBase<Contato, ContatoViewModel, IContatoService>, IContatoAppService
     {
         public ContatoAppService(IContatoService contatoService, IUnitOfWork uow, IMapper mapper) : base(uow, contatoService, mapper)
         {
@@ -25,14 +25,14 @@ namespace DotNetCoreAppExample.Application.Services
             return _mapper.Map<ContatoViewModel>(_service.ObterPorEmail(email));
         }
 
-        public NovoTelefoneViewModel AdicionarTelefone(NovoTelefoneViewModel telefoneViewModel)
+        public TelefoneViewModel AdicionarTelefone(TelefoneViewModel telefoneViewModel)
         {
             var telefone = _service.AdicionarTelefone(_mapper.Map<Telefone>(telefoneViewModel));
 
             if (telefone.ValidationResult.IsValid)
                 Commit();
 
-            return _mapper.Map<NovoTelefoneViewModel>(telefone);
+            return _mapper.Map<TelefoneViewModel>(telefone);
         }
 
         public TelefoneViewModel AtualizarTelefone(TelefoneViewModel telefoneViewModel)
@@ -61,14 +61,14 @@ namespace DotNetCoreAppExample.Application.Services
             return _mapper.Map<EnderecoViewModel>(_service.ObterEnderecoPorId(enderecoId));
         }
 
-        public NovoEnderecoViewModel AdicionarEndereco(NovoEnderecoViewModel enderecoViewModel)
+        public EnderecoViewModel AdicionarEndereco(EnderecoViewModel enderecoViewModel)
         {
             var endereco = _service.AdicionarEndereco(_mapper.Map<Endereco>(enderecoViewModel));
 
             if (endereco.ValidationResult.IsValid)
                 Commit();
 
-            return _mapper.Map<NovoEnderecoViewModel>(endereco);
+            return _mapper.Map<EnderecoViewModel>(endereco);
         }
 
         public EnderecoViewModel AtualizarEndereco(EnderecoViewModel enderecoViewModel)

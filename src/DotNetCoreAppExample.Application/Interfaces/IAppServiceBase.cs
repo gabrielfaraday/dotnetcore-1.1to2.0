@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace DotNetCoreAppExample.Application.Interfaces
 {
-    public interface IAppServiceBase<TEntityViewModel, TNewEntityViewModel> : IDisposable where TEntityViewModel : class where TNewEntityViewModel : TEntityViewModel
+    public interface IAppServiceBase<TEntityViewModel> : IDisposable where TEntityViewModel : class
     {
-        TNewEntityViewModel Add(TNewEntityViewModel entityViewModel);
+        TEntityViewModel Add(TEntityViewModel entityViewModel);
         void Delete(Guid id);
         TEntityViewModel FindById(Guid id);
         IEnumerable<TEntityViewModel> GetAll();

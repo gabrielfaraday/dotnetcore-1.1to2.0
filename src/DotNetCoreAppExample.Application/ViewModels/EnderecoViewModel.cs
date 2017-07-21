@@ -5,20 +5,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DotNetCoreAppExample.Application.ViewModels
 {
-    public class NovoEnderecoViewModel : EnderecoViewModel
-    {
-    }
-
     public class EnderecoViewModel
     {
         public EnderecoViewModel()
         {
             Id = Guid.NewGuid();
-        }
-
-        public SelectList Estados()
-        {
-            return new SelectList(EstadoViewModel.ListarEstados(), "UF", "Nome");
         }
 
         [Key]
@@ -57,14 +48,16 @@ namespace DotNetCoreAppExample.Application.ViewModels
         public string Estado { get; set; }
 
         [ScaffoldColumn(false)]
-        public Guid ContatoId { get; set; }
-
-        [ScaffoldColumn(false)]
         public FluentValidation.Results.ValidationResult ValidationResult { get; set; }
 
         public override string ToString()
         {
             return $"{Logradouro} , {Numero} - {Complemento} - {Bairro}, {Cidade}/{Estado}";
+        }
+
+        public SelectList Estados()
+        {
+            return new SelectList(EstadoViewModel.ListarEstados(), "UF", "Nome");
         }
     }
 }
