@@ -1,0 +1,7 @@
+﻿@using DotNetCoreAppExample.Application.ViewModels
+@model ContatoViewModel
+
+@{
+    var estados = (IEnumerable<SelectListItem>)new EnderecoViewModel().Estados();
+}
+<select class="form-control" asp-for="Endereco.Estado" asp-items="@estados"></select>   

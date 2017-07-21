@@ -1,4 +1,4 @@
-@model DotNetCoreAppExample.Application.ViewModels.ContatoViewModel
+﻿@model DotNetCoreAppExample.Application.ViewModels.ContatoViewModel
 
 @{
     ViewData["Title"] = "Alterar Contato";
@@ -10,22 +10,15 @@
     <div class="form-horizontal">
         <hr />
         @Html.Partial("_ErrorSummary")
+        
         <input type="hidden" asp-for="Id" />
         <input type="hidden" asp-for="Ativo" />
-        <div class="form-group">
-            <label asp-for="Nome" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Nome" class="form-control" />
-                <span asp-validation-for="Nome" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Email" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-        </div>
+        <input type="hidden" asp-for="EnderecoId" />
+        <input type="hidden" asp-for="Endereco.Id" />
+        
+        @Html.Partial("_DadosContato")
+        @Html.Partial("_DadosEndereco")
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" id="btSubmit" value="Alterar" class="btn btn-success" />

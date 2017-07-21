@@ -10,20 +10,10 @@
     <div class="form-horizontal">
         <hr />
         @Html.Partial("_ErrorSummary")
-        <div class="form-group">
-            <label asp-for="Nome" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Nome" class="form-control" />
-                <span asp-validation-for="Nome" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Email" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-        </div>
+
+        @Html.Partial("_DadosContato")
+        @Html.Partial("_DadosEndereco")
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" id="btSubmit" value="Criar" class="btn btn-success" />
