@@ -10,9 +10,7 @@ namespace DotNetCoreAppExample.Domain.Contatos.Interfaces
         Contato ObterContatoPorEmail(string email);
         ICollection<Contato> ObterContatosAtivos();
 
-        Endereco ObterEnderecoPorId(Guid enderecoId);
-        Endereco AdicionarEndereco(Endereco endereco);
-        Endereco AtualizarEndereco(Endereco endereco);
+        void RemoverEndereco(Guid enderecoId);
 
         Telefone ObterTelefonePorId(Guid telefoneId);
         Telefone AdicionarTelefone(Telefone telefone);

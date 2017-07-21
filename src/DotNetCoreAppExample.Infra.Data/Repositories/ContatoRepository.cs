@@ -15,19 +15,32 @@ namespace DotNetCoreAppExample.Infra.Data.Repositories
         {
         }
 
-        public Endereco AdicionarEndereco(Endereco endereco)
+        public override Contato FindById(Guid id)
         {
-            return Db.Enderecos.Add(endereco).Entity;
+            var sql = @"SELECT *
+                          FROM Contatos C
+                     LEFT JOIN Telefones T ON C.Id = T.ContatoId
+                     LEFT JOIN Enderecos E ON C.EnderecoId = E.Id
+                      WHERE C.Id = @pid";
+
+            var evento = Db.Database.GetDbConnection().Query<Contato, Telefone, Endereco, Contato>(sql,
+                (c, t, e) =>
+                {
+                    if (t != null)
+                        c.AtribuirTelefone(t);
+
+                    if (e != null)
+                        c.AtribuirEndereco(e);
+
+                    return c;
+                }, new { pid = id });
+
+            return evento.FirstOrDefault();
         }
 
         public Telefone AdicionarTelefone(Telefone telefone)
         {
             return Db.Telefones.Add(telefone).Entity;
-        }
-
-        public Endereco AtualizarEndereco(Endereco endereco)
-        {
-            return Db.Enderecos.Update(endereco).Entity;
         }
 
         public Telefone AtualizarTelefone(Telefone telefone)
@@ -43,15 +56,6 @@ namespace DotNetCoreAppExample.Infra.Data.Repositories
                       ORDER BY NOME ";
 
             return Db.Database.GetDbConnection().Query<Contato>(sql).AsList();
-        }
-
-        public Endereco ObterEnderecoPorId(Guid enderecoId)
-        {
-            var sql = @"SELECT * FROM Enderecos WHERE Id = @pid";
-
-            var endereco = Db.Database.GetDbConnection().Query<Endereco>(sql, new { pid = enderecoId });
-
-            return endereco.SingleOrDefault();
         }
 
         public Contato ObterContatoPorEmail(string email)
@@ -77,31 +81,18 @@ namespace DotNetCoreAppExample.Infra.Data.Repositories
             Db.Telefones.Remove(ObterTelefonePorId(telefoneId));
         }
 
-        #region [ Overrides ]
-
-        public override Contato FindById(Guid id)
+        public void RemoverEndereco(Guid enderecoId)
         {
-            var sql = @"SELECT *
-                          FROM Contatos C
-                     LEFT JOIN Telefones T ON C.Id = T.ContatoId
-                     LEFT JOIN Enderecos E ON C.EnderecoId = E.Id
-                      WHERE C.Id = @pid";
-
-            var evento = Db.Database.GetDbConnection().Query<Contato, Telefone, Endereco, Contato>(sql,
-                (c, t, e) =>
-                {
-                    if (t != null)
-                        c.AtribuirTelefone(t);
-
-                    if (e != null)
-                        c.AtribuirEndereco(e);
-
-                    return c;
-                }, new { pid = id });
-
-            return evento.FirstOrDefault();
+            Db.Enderecos.Remove(ObterEnderecoPorId(enderecoId));
         }
 
-        #endregion [ Overrides ]
+        private Endereco ObterEnderecoPorId(Guid enderecoId)
+        {
+            var sql = @"SELECT * FROM Enderecos WHERE Id = @pid";
+
+            var endereco = Db.Database.GetDbConnection().Query<Endereco>(sql, new { pid = enderecoId });
+
+            return endereco.SingleOrDefault();
+        }
     }
 }

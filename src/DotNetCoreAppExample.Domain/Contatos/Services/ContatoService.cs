@@ -31,7 +31,12 @@ namespace DotNetCoreAppExample.Domain.Contatos.Services
                     string.IsNullOrWhiteSpace(contato.Endereco.Bairro) &&
                         string.IsNullOrWhiteSpace(contato.Endereco.Cidade) &&
                             string.IsNullOrWhiteSpace(contato.Endereco.CEP))
+            {
+                if (contato.EnderecoId.HasValue)
+                    RemoverEndereco(contato.EnderecoId.Value);
+
                 contato.LimparEndereco();
+            }
 
             return base.Update(contato);
         }
@@ -72,19 +77,9 @@ namespace DotNetCoreAppExample.Domain.Contatos.Services
             _repository.RemoverTelefone(telefoneId);
         }
 
-        public Endereco ObterEnderecoPorId(Guid enderecoId)
+        public void RemoverEndereco(Guid enderecoId)
         {
-            return _repository.ObterEnderecoPorId(enderecoId);
-        }
-
-        public Endereco AdicionarEndereco(Endereco endereco)
-        {
-            return _repository.AdicionarEndereco(endereco);
-        }
-
-        public Endereco AtualizarEndereco(Endereco endereco)
-        {
-            return _repository.AtualizarEndereco(endereco);
+            _repository.RemoverEndereco(enderecoId);
         }
 
         public override void Dispose()

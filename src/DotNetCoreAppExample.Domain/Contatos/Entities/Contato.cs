@@ -36,6 +36,7 @@ namespace DotNetCoreAppExample.Domain.Contatos.Entities
         public void LimparEndereco()
         {
             Endereco = null;
+            EnderecoId = null;
         }
 
         public void AtribuirEndereco(Endereco endereco)

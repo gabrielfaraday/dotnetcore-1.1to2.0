@@ -56,29 +56,10 @@ namespace DotNetCoreAppExample.Application.Services
             return _mapper.Map<TelefoneViewModel>(_service.ObterTelefonePorId(id));
         }
 
-        public EnderecoViewModel ObterEnderecoPorId(Guid enderecoId)
+        public void RemoverEndereco(Guid enderecoId)
         {
-            return _mapper.Map<EnderecoViewModel>(_service.ObterEnderecoPorId(enderecoId));
-        }
-
-        public EnderecoViewModel AdicionarEndereco(EnderecoViewModel enderecoViewModel)
-        {
-            var endereco = _service.AdicionarEndereco(_mapper.Map<Endereco>(enderecoViewModel));
-
-            if (endereco.ValidationResult.IsValid)
-                Commit();
-
-            return _mapper.Map<EnderecoViewModel>(endereco);
-        }
-
-        public EnderecoViewModel AtualizarEndereco(EnderecoViewModel enderecoViewModel)
-        {
-            var endereco = _service.AtualizarEndereco(_mapper.Map<Endereco>(enderecoViewModel));
-
-            if (endereco.ValidationResult.IsValid)
-                Commit();
-
-            return _mapper.Map<EnderecoViewModel>(endereco);
+            _service.RemoverEndereco(enderecoId);
+            Commit();
         }
     }
 }
