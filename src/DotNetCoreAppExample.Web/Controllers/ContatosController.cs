@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using DotNetCoreAppExample.Application.ViewModels;
 using DotNetCoreAppExample.Application.Interfaces;
 
@@ -48,11 +48,12 @@ namespace DotNetCoreAppExample.Web.Controllers
         [Route("novo-contato")]
         public IActionResult Create(ContatoViewModel contatoViewModel)
         {
-            if (!ModelState.IsValid) return View(contatoViewModel);
+            if (!ModelState.IsValid)
+                return View(contatoViewModel);
 
-            _contatoAppService.Add(contatoViewModel);
+            var retorno = _contatoAppService.Add(contatoViewModel);
 
-            return RedirectToAction("Index");
+            return TratarRetorno(retorno);
         }
 
         [Route("alterar-contato/{id:guid}")]
@@ -76,9 +77,9 @@ namespace DotNetCoreAppExample.Web.Controllers
         {
             if (!ModelState.IsValid) return View(contatoViewModel);
 
-            _contatoAppService.Update(contatoViewModel);
+            var retorno = _contatoAppService.Update(contatoViewModel);
 
-            return RedirectToAction("Index");
+            return TratarRetorno(retorno);
         }
 
         [Route("remover-contato/{id:guid}")]
@@ -87,7 +88,7 @@ namespace DotNetCoreAppExample.Web.Controllers
             if (id == null)
                 return NotFound();
 
-            var contatoViewModel = _contatoAppService.FindById(id.Value );
+            var contatoViewModel = _contatoAppService.FindById(id.Value);
 
             if (contatoViewModel == null)
                 return NotFound();
@@ -102,6 +103,24 @@ namespace DotNetCoreAppExample.Web.Controllers
         {
             _contatoAppService.Delete(id);
             return RedirectToAction("Index");
+        }
+
+        private IActionResult TratarRetorno(ContatoViewModel retorno)
+        {
+            if (retorno.ValidationResult.IsValid)
+            {
+                ViewBag.RetornoPost = "success,Operação realizada com sucesso!";
+                return RedirectToAction("Index");
+            }
+
+            retorno
+                .ValidationResult
+                .Errors.ToList()
+                .ForEach(e => ModelState.AddModelError(string.Empty, e.ErrorMessage));
+
+            ViewBag.RetornoPost = "error,Operação não concluida!";
+
+            return View(retorno);
         }
     }
 }

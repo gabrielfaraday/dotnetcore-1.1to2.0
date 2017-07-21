@@ -1,16 +1,15 @@
-@model DotNetCoreAppExample.Application.ViewModels.ContatoViewModel
+﻿@model DotNetCoreAppExample.Application.ViewModels.ContatoViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Novo Contato";
 }
 
-<h2>Create</h2>
+<h2>@ViewData["Title"]</h2>
 
 <form asp-action="Create">
     <div class="form-horizontal">
-        <h4>ContatoViewModel</h4>
         <hr />
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @Html.Partial("_ErrorSummary")
         <div class="form-group">
             <label asp-for="Nome" class="col-md-2 control-label"></label>
             <div class="col-md-10">
@@ -27,16 +26,28 @@
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" id="btSubmit" value="Criar" class="btn btn-success" />
+                <a asp-action="Index" class="btn btn-info">Voltar para a lista</a>
             </div>
         </div>
     </div>
 </form>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        PrepararToastr();
+    </script>
+
+    @{
+        if (ViewBag.RetornoPost != null)
+        {
+            var notificacao = ViewBag.RetornoPost.ToString().Split(',');
+
+            <script>
+                toastr["@notificacao[0]"]("@notificacao[1]");
+            </script>
+        }
+    }
 }

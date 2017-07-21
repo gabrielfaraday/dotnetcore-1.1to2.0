@@ -1,14 +1,13 @@
 @model DotNetCoreAppExample.Application.ViewModels.ContatoViewModel
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Remover Contato";
 }
 
-<h2>Delete</h2>
+<h2>@ViewData["Title"]</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Quer realmente remover o contato?</h3>
 <div>
-    <h4>ContatoViewModel</h4>
     <hr />
     <dl class="dl-horizontal">
         <input type="hidden" asp-for="Id" />
@@ -28,8 +27,8 @@
     
     <form asp-action="Delete">
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            <a asp-action="Index">Back to List</a>
+            <input type="submit" value="Remover" class="btn btn-danger" /> |
+            <a asp-action="Index" class="btn btn-info">Voltar para a lista</a>
         </div>
     </form>
 </div>

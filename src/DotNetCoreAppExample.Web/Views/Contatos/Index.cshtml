@@ -1,14 +1,21 @@
-@model IEnumerable<DotNetCoreAppExample.Application.ViewModels.ContatoViewModel>
+﻿@model IEnumerable<DotNetCoreAppExample.Application.ViewModels.ContatoViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Contatos";
 }
 
-<h2>Index</h2>
+<h2>@ViewData["Title"]</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<div class="row">
+    <div class="col-md-12">
+        <div class="pull-left">
+            <a asp-action="Create" class="btn btn-primary">
+                <span title="Novo Contato" class="glyphicon glyphicon-plus-sign"></span> Novo Contato
+            </a>
+        </div>
+    </div>
+</div>
+<br />
 <table class="table">
     <thead>
         <tr>
@@ -31,11 +38,19 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </a>
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-search"></span>
+                </a>
+
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+
