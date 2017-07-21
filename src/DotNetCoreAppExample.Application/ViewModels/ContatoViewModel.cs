@@ -1,0 +1,53 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+
+namespace DotNetCoreAppExample.Application.ViewModels
+{
+    public class NovoContatoViewModel : ContatoViewModel
+    {
+        public NovoContatoViewModel()
+        {
+            Telefones = new List<TelefoneViewModel>();
+            Endereco = new EnderecoViewModel();
+        }
+    }
+
+    public class ContatoViewModel
+    {
+        public ContatoViewModel()
+        {
+            Id = Guid.NewGuid();
+            Telefones = new List<TelefoneViewModel>();
+            Endereco = new EnderecoViewModel();
+        }
+
+        [Key]
+        public Guid Id { get; set; }
+
+        [Required(ErrorMessage = "Informe o nome do contato")]
+        [MaxLength(150, ErrorMessage = "O tamanho maximo do nome é 150 caracteres")]
+        [MinLength(2, ErrorMessage = "O tamanho minimo do nome é 2 caracteres")]
+        public string Nome { get; set; }
+
+        [Required(ErrorMessage = "Informe o e-mail do contato")]
+        [MaxLength(256, ErrorMessage = "O tamanho maximo do e-mail é 256 caracteres")]
+        [EmailAddress(ErrorMessage = "Informe um e-mail válido")]
+        [DisplayName("E-mail")]
+        public string Email { get; set; }
+
+        [ScaffoldColumn(false)]
+        public DateTime DataCadastro { get; set; }
+
+        [ScaffoldColumn(false)]
+        public bool Ativo { get; set; }
+
+        public ICollection<TelefoneViewModel> Telefones { get; set; }
+
+        public EnderecoViewModel Endereco { get; set; }
+
+        [ScaffoldColumn(false)]
+        public FluentValidation.Results.ValidationResult ValidationResult { get; set; }
+    }
+}

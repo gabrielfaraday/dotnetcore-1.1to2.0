@@ -6,9 +6,9 @@ namespace DotNetCoreAppExample.Domain.Contatos.Entities
 {
     public class Telefone : EntityBase<Telefone>
     {
-        public Telefone(Guid id, int ddd, string numero, Guid contatoId)
+        public Telefone(Guid? id, int ddd, string numero, Guid contatoId)
         {
-            Id = Guid.NewGuid();
+            Id = id ?? Guid.NewGuid();
             DDD = ddd;
             Numero = numero;
             ContatoId = contatoId;
@@ -43,7 +43,7 @@ namespace DotNetCoreAppExample.Domain.Contatos.Entities
 
             RuleFor(c => c.Numero)
                 .NotEmpty().WithMessage("O Numero precisa ser fornecido")
-                .Length(1, 10).WithMessage("O Numero precisa ter entre 1 e 10 caracteres");
+                .Length(8, 9).WithMessage("O Numero precisa ter entre 8 e 9 caracteres");
         }
 
         #endregion  [ Validações ]

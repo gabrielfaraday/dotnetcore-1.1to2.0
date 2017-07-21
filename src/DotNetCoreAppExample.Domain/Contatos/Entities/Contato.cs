@@ -7,9 +7,9 @@ namespace DotNetCoreAppExample.Domain.Contatos.Entities
 {
     public class Contato : EntityBase<Contato>
     {
-        public Contato(string nome, string email)
+        public Contato(Guid? id, string nome, string email)
         {
-            Id = Guid.NewGuid();
+            Id = id ?? Guid.NewGuid();
             Nome = nome;
             Email = email;
             Ativo = true;

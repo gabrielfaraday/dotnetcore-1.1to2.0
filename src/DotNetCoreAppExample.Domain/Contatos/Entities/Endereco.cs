@@ -6,9 +6,9 @@ namespace DotNetCoreAppExample.Domain.Contatos.Entities
 {
     public class Endereco : EntityBase<Endereco>
     {
-        public Endereco(Guid id, string logradouro, string numero, string complemento, string bairro, string cep, string cidade, string estado, Guid? contatoId)
+        public Endereco(Guid? id, string logradouro, string numero, string complemento, string bairro, string cep, string cidade, string estado, Guid? contatoId)
         {
-            Id = id;
+            Id = id ?? Guid.NewGuid();
             Logradouro = logradouro;
             Numero = numero;
             Complemento = complemento;
@@ -57,11 +57,17 @@ namespace DotNetCoreAppExample.Domain.Contatos.Entities
                 .Length(2, 150).WithMessage("O Logradouro precisa ter entre 2 e 150 caracteres");
         }
 
+        private void ValidarComplemento()
+        {
+            RuleFor(c => c.Complemento)
+                .MaximumLength(100).WithMessage("O Complemento precisa ter até 100 caracteres");
+        }
+
         private void ValidarBairro()
         {
             RuleFor(c => c.Bairro)
                             .NotEmpty().WithMessage("O Bairro precisa ser fornecido")
-                            .Length(2, 150).WithMessage("O Bairro precisa ter entre 2 e 150 caracteres");
+                            .Length(2, 50).WithMessage("O Bairro precisa ter entre 2 e 150 caracteres");
         }
 
         private void ValidarCEP()
@@ -75,7 +81,7 @@ namespace DotNetCoreAppExample.Domain.Contatos.Entities
         {
             RuleFor(c => c.Cidade)
                 .NotEmpty().WithMessage("A Cidade precisa ser fornecida")
-                .Length(2, 150).WithMessage("A Cidade precisa ter entre 2 e 150 caracteres");
+                .Length(2, 100).WithMessage("A Cidade precisa ter entre 2 e 100 caracteres");
         }
 
         private void ValidarEstado()
