@@ -6,12 +6,14 @@ namespace DotNetCoreAppExample.Domain.Contatos.Entities
 {
     public class Telefone : EntityBase<Telefone>
     {
-        public Telefone(Guid id, int ddd, string numero, Guid contatoId)
+        public Telefone(Guid id, string ddd, string numero, Guid contatoId)
         {
             Id = id;
-            DDD = ddd;
             Numero = numero;
             ContatoId = contatoId;
+
+            if (int.TryParse(ddd, out int dddInt))
+                DDD = dddInt;
         }
 
         // Construtor para o EF

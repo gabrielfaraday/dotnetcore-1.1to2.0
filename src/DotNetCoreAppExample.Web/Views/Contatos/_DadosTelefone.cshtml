@@ -1,0 +1,23 @@
+@model DotNetCoreAppExample.Application.ViewModels.ContatoViewModel
+
+<div class="form-horizontal">
+
+    <input type="hidden" asp-for="TelefoneEmAlteracao.ContatoId" />
+    <input type="hidden" asp-for="TelefoneEmAlteracao.Id" />
+
+    <div class="form-group">
+        <label asp-for="TelefoneEmAlteracao.DDD" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="TelefoneEmAlteracao.DDD" class="form-control" />
+            <span asp-validation-for="TelefoneEmAlteracao.DDD" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="TelefoneEmAlteracao.Numero" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="TelefoneEmAlteracao.Numero" class="form-control" />
+            <span asp-validation-for="TelefoneEmAlteracao.Numero" class="text-danger"></span>
+        </div>
+    </div>
+</div>
+

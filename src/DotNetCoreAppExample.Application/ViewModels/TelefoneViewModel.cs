@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DotNetCoreAppExample.Application.ViewModels
 {
-    public class TelefoneViewModel
+    public class TelefoneViewModel : ViewModelBase
     {
         public TelefoneViewModel()
         {
@@ -16,7 +16,7 @@ namespace DotNetCoreAppExample.Application.ViewModels
 
         [Required(ErrorMessage = "Informe o DDD do telefone")]
         [StringLength(2, ErrorMessage = "Deve ter 2 caracteres")]
-        public int DDD { get; set; }
+        public string DDD { get; set; }
 
         [Required(ErrorMessage = "Informe o número do telefone")]
         [MaxLength(9, ErrorMessage = "Máximo 9 caracteres")]
@@ -26,9 +26,6 @@ namespace DotNetCoreAppExample.Application.ViewModels
 
         [ScaffoldColumn(false)]
         public Guid ContatoId { get; set; }
-
-        [ScaffoldColumn(false)]
-        public FluentValidation.Results.ValidationResult ValidationResult { get; set; }
 
         public override string ToString()
         {

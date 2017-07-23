@@ -32,7 +32,7 @@ namespace DotNetCoreAppExample.Infra.Data.Mappings
             builder.HasOne(c => c.Endereco)
                 .WithOne(e => e.Contato)
                 .HasForeignKey<Contato>(e => e.EnderecoId)
-                .IsRequired(false);
+                .IsRequired();
 
             builder.ToTable("Contatos");
         }

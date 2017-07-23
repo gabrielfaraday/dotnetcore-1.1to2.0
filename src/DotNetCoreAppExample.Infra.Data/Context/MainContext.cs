@@ -12,7 +12,7 @@ namespace DotNetCoreAppExample.Infra.Data.Context
 {
     public class MainContext : DbContext
     {
-        public DbSet<Contato> Eventos { get; set; }
+        public DbSet<Contato> Contatos { get; set; }
         public DbSet<Endereco> Enderecos { get; set; }
         public DbSet<Telefone> Telefones { get; set; }
 

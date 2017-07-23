@@ -1,0 +1,30 @@
+﻿@model DotNetCoreAppExample.Application.ViewModels.ContatoViewModel
+
+@{
+    ViewData["Title"] = "Alterar Telefone";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true">×</span><span class="sr-only">Fechar</span>
+    </button>
+    <h4 class="modal-title">@ViewData["Title"]</h4>
+</div>
+
+<form asp-action="AlterarTelefone">
+    <div class="modal-body">
+        <div class="form-horizontal">
+
+            @Html.Partial("_ErrorSummary")
+
+            @Html.Partial("_DadosTelefone")
+
+            <div class="modal-footer">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Alterar" class="btn btn-success" />
+                    <input type="button" class="btn btn-info" value="Fechar" data-dismiss="modal" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

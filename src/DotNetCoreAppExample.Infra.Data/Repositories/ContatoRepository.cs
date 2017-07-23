@@ -23,19 +23,39 @@ namespace DotNetCoreAppExample.Infra.Data.Repositories
                      LEFT JOIN Enderecos E ON C.EnderecoId = E.Id
                       WHERE C.Id = @pid";
 
-            var evento = Db.Database.GetDbConnection().Query<Contato, Telefone, Endereco, Contato>(sql,
+            var lookup = new Dictionary<Guid, Contato>();
+            Db.Database.GetDbConnection().Query<Contato, Telefone, Endereco, Contato>(sql,
                 (c, t, e) =>
                 {
+                    Contato contato;
+
+                    if (!lookup.TryGetValue(c.Id, out contato))
+                        lookup.Add(c.Id, contato = c);
+
                     if (t != null)
-                        c.AtribuirTelefone(t);
+                        contato.AtribuirTelefone(t);
 
-                    if (e != null)
-                        c.AtribuirEndereco(e);
+                    if (e != null && contato.Endereco == null)
+                        contato.AtribuirEndereco(e);
 
-                    return c;
-                }, new { pid = id });
+                    return contato;
+                }, new { pid = id }).AsQueryable();
 
-            return evento.FirstOrDefault();
+            return lookup.Values.FirstOrDefault();
+
+            //var evento = Db.Database.GetDbConnection().Query<Contato, Telefone, Endereco, Contato>(sql,
+            //    (c, t, e) =>
+            //    {
+            //        if (t != null)
+            //            c.AtribuirTelefone(t);
+
+            //        if (e != null)
+            //            c.AtribuirEndereco(e);
+
+            //        return c;
+            //    }, new { pid = id });
+
+            //return evento.FirstOrDefault();
         }
 
         public Telefone AdicionarTelefone(Telefone telefone)

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DotNetCoreAppExample.Application.ViewModels
 {
-    public class ContatoViewModel
+    public class ContatoViewModel : ViewModelBase
     {
         public ContatoViewModel()
         {
@@ -41,7 +41,6 @@ namespace DotNetCoreAppExample.Application.ViewModels
 
         public EnderecoViewModel Endereco { get; set; }
 
-        [ScaffoldColumn(false)]
-        public FluentValidation.Results.ValidationResult ValidationResult { get; set; }
+        public TelefoneViewModel TelefoneEmAlteracao { get; set; }
     }
 }

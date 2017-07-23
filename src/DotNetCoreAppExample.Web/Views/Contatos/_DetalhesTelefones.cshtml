@@ -1,0 +1,55 @@
+@model DotNetCoreAppExample.Application.ViewModels.ContatoViewModel
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <strong>Telefones</strong>
+    </div>
+
+    <table class="table">
+        <tr>
+            <th>
+                <a asp-action="AdicionarTelefone" asp-route-id="@Model.Id" data-modal="" class="btn btn-info">
+                    <span title="Adicionar Telefone" class="glyphicon glyphicon-plus-sign"></span> Adicionar Telefone
+                </a>
+            </th>
+        </tr>
+    </table>
+
+
+    <table class="table table-hover">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TelefoneEmAlteracao.DDD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TelefoneEmAlteracao.Numero)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.Telefones)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DDD)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Numero)
+                </td>
+                <td>
+                    <div>
+                        <a asp-action="AlterarTelefone" asp-route-id="@item.Id" data-modal="" class="btn btn-warning">
+                            <span title="Editar" class="glyphicon glyphicon-pencil"></span>
+                        </a>
+                       
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+
+
+</div>
+<script>
+    AjaxModal();
+</script>

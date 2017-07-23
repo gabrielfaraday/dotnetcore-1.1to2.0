@@ -33,12 +33,6 @@ namespace DotNetCoreAppExample.Domain.Contatos.Entities
             Ativo = true;
         }
 
-        public void LimparEndereco()
-        {
-            Endereco = null;
-            EnderecoId = null;
-        }
-
         public void AtribuirEndereco(Endereco endereco)
         {
             if (!endereco.EstaValido()) return;
@@ -48,6 +42,10 @@ namespace DotNetCoreAppExample.Domain.Contatos.Entities
         public void AtribuirTelefone(Telefone telefone)
         {
             if (!telefone.EstaValido()) return;
+
+            if (Telefones == null)
+                Telefones = new List<Telefone>();
+
             Telefones.Add(telefone);
         }
 
@@ -87,7 +85,7 @@ namespace DotNetCoreAppExample.Domain.Contatos.Entities
 
         private void ValidarEndereco()
         {
-            if (Endereco == null || Endereco.EstaValido())
+            if (Endereco.EstaValido())
                 return;
 
             foreach (var erro in Endereco.ValidationResult.Errors)
@@ -140,27 +138,5 @@ namespace DotNetCoreAppExample.Domain.Contatos.Entities
 
         #endregion  [ Validações ]
 
-        //public static class ContatoFactory
-        //{
-        //    public static Contato ContatoCompleto(Guid? id, string nome, string email, Endereco endereco)
-        //    {
-        //        var contato = new Contato
-        //        {
-        //            Id = id ?? Guid.NewGuid(),
-        //            Nome = nome,
-        //            Email = email,
-        //            Ativo = true,
-        //            Endereco = endereco
-        //        };
-
-        //        if (string.IsNullOrWhiteSpace(endereco.Logradouro) &&
-        //            string.IsNullOrWhiteSpace(endereco.Bairro) &&
-        //            string.IsNullOrWhiteSpace(endereco.Cidade) &&
-        //            string.IsNullOrWhiteSpace(endereco.CEP))
-        //            contato.Endereco = null;
-
-        //        return contato;
-        //    }
-        //}
     }
 }

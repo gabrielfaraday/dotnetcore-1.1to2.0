@@ -10,12 +10,12 @@
     <div class="form-horizontal">
         <hr />
         @Html.Partial("_ErrorSummary")
-        
+
         <input type="hidden" asp-for="Id" />
         <input type="hidden" asp-for="Ativo" />
         <input type="hidden" asp-for="EnderecoId" />
         <input type="hidden" asp-for="Endereco.Id" />
-        
+
         @Html.Partial("_DadosContato")
         @Html.Partial("_DadosEndereco")
 
@@ -25,14 +25,31 @@
                 <a asp-action="Index" class="btn btn-info">Voltar para a lista</a>
             </div>
         </div>
+
+
     </div>
 </form>
+
+<div id="TelefonesForm">
+    <div id="myModalTarget">
+        @Html.Partial("_DetalhesTelefones")
+    </div>
+</div>
+
+<div id="myModal" class="modal fade in">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="myModalContent"></div>
+        </div>
+    </div>
+</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
     <script>
         PrepararToastr();
+        AjaxModal();
     </script>
 
     @{

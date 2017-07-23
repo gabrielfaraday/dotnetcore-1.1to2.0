@@ -14,11 +14,11 @@ namespace DotNetCoreAppExample.Domain.Contatos.Services
 
         public override Contato Add(Contato contato)
         {
-            if (string.IsNullOrWhiteSpace(contato.Endereco.Logradouro) &&
-                    string.IsNullOrWhiteSpace(contato.Endereco.Bairro) &&
-                        string.IsNullOrWhiteSpace(contato.Endereco.Cidade) &&
-                            string.IsNullOrWhiteSpace(contato.Endereco.CEP))
-                contato.LimparEndereco();
+            //if (string.IsNullOrWhiteSpace(contato.Endereco.Logradouro) &&
+            //        string.IsNullOrWhiteSpace(contato.Endereco.Bairro) &&
+            //            string.IsNullOrWhiteSpace(contato.Endereco.Cidade) &&
+            //                string.IsNullOrWhiteSpace(contato.Endereco.CEP))
+            //    contato.LimparEndereco();
 
             contato.AtivarContato();
 
@@ -27,16 +27,16 @@ namespace DotNetCoreAppExample.Domain.Contatos.Services
 
         public override Contato Update(Contato contato)
         {
-            if (string.IsNullOrWhiteSpace(contato.Endereco.Logradouro) &&
-                    string.IsNullOrWhiteSpace(contato.Endereco.Bairro) &&
-                        string.IsNullOrWhiteSpace(contato.Endereco.Cidade) &&
-                            string.IsNullOrWhiteSpace(contato.Endereco.CEP))
-            {
-                if (contato.EnderecoId.HasValue)
-                    RemoverEndereco(contato.EnderecoId.Value);
+            //if (string.IsNullOrWhiteSpace(contato.Endereco.Logradouro) &&
+            //        string.IsNullOrWhiteSpace(contato.Endereco.Bairro) &&
+            //            string.IsNullOrWhiteSpace(contato.Endereco.Cidade) &&
+            //                string.IsNullOrWhiteSpace(contato.Endereco.CEP))
+            //{
+            //    if (contato.EnderecoId.HasValue)
+            //        RemoverEndereco(contato.EnderecoId.Value);
 
-                contato.LimparEndereco();
-            }
+            //    contato.LimparEndereco();
+            //}
 
             return base.Update(contato);
         }

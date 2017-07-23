@@ -52,7 +52,7 @@ namespace DotNetCoreAppExample.Web.Controllers
 
             var retorno = _contatoAppService.Add(contatoViewModel);
 
-            return TratarRetorno(retorno);
+            return TratarRetorno(retorno, RedirectToAction("Edit", retorno));
         }
 
         [Route("alterar-contato/{id:guid}")]
@@ -78,7 +78,7 @@ namespace DotNetCoreAppExample.Web.Controllers
 
             var retorno = _contatoAppService.Update(contatoViewModel);
 
-            return TratarRetorno(retorno);
+            return TratarRetorno(retorno, RedirectToAction("Index"));
         }
 
         [Route("remover-contato/{id:guid}")]
@@ -104,12 +104,95 @@ namespace DotNetCoreAppExample.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        private IActionResult TratarRetorno(ContatoViewModel retorno)
+        [Route("adicionar-telefone/{id:guid}")]
+        public IActionResult AdicionarTelefone(Guid? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var contatoViewModel = _contatoAppService.FindById(id.Value);
+            return PartialView("_AdicionarTelefone", contatoViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("adicionar-telefone/{id:guid}")]
+        public IActionResult AdicionarTelefone(ContatoViewModel contatoViewModel)
+        {
+            ModelState.Clear();
+            contatoViewModel.TelefoneEmAlteracao.ContatoId = contatoViewModel.Id;
+            var retorno = _contatoAppService.AdicionarTelefone(contatoViewModel.TelefoneEmAlteracao);
+
+            if (retorno.ValidationResult.IsValid)
+            {
+                var url = Url.Action("ObterTelefones", "Contatos", new { id = contatoViewModel.Id });
+                return Json(new { success = true, url = url });
+            }
+
+            retorno
+                .ValidationResult
+                .Errors.ToList()
+                .ForEach(e => ModelState.AddModelError(string.Empty, e.ErrorMessage));
+
+            ViewBag.RetornoPost = "error,Operação não concluida!";
+
+            return PartialView("_AdicionarTelefone", contatoViewModel);
+        }
+
+        [Route("alterar-telefone/{id:guid}")]
+        public IActionResult AlterarTelefone(Guid? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var telefoneViewModel = _contatoAppService.ObterTelefonePorId(id.Value);
+
+            if (telefoneViewModel == null)
+                NotFound();
+
+            var contatoViewModel = _contatoAppService.FindById(telefoneViewModel.ContatoId);
+
+            contatoViewModel.TelefoneEmAlteracao = telefoneViewModel;
+
+            return PartialView("_AlterarTelefone", contatoViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("alterar-telefone/{id:guid}")]
+        public IActionResult AlterarTelefone(ContatoViewModel contatoViewModel)
+        {
+            ModelState.Clear();
+            var retorno = _contatoAppService.AtualizarTelefone(contatoViewModel.TelefoneEmAlteracao);
+
+            if (retorno.ValidationResult.IsValid)
+            {
+                var url = Url.Action("ObterTelefones", "Contatos", new { id = contatoViewModel.TelefoneEmAlteracao.ContatoId });
+                return Json(new { success = true, url = url });
+            }
+
+            retorno
+                .ValidationResult
+                .Errors.ToList()
+                .ForEach(e => ModelState.AddModelError(string.Empty, e.ErrorMessage));
+
+            ViewBag.RetornoPost = "error,Operação não concluida!";
+
+            return PartialView("_AlterarTelefone", contatoViewModel);
+        }
+
+        [Route("listar-telefones/{id:guid}")]
+        public IActionResult ObterTelefones(Guid id)
+        {
+            return PartialView("_DetalhesTelefones", _contatoAppService.FindById(id));
+        }
+
+        private IActionResult TratarRetorno(ViewModelBase retorno, IActionResult resultado)
         {
             if (retorno.ValidationResult.IsValid)
             {
                 ViewBag.RetornoPost = "success,Operação realizada com sucesso!";
-                return RedirectToAction("Index");
+                return resultado;
             }
 
             retorno
