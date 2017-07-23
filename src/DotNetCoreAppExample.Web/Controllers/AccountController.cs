@@ -452,7 +452,7 @@ namespace DotNetCoreAppExample.Web.Controllers
         [HttpGet]
         public IActionResult AccessDenied()
         {
-            return View();
+            return RedirectToAction("Erros", "Erros", new { id = 403 });
         }
 
         #region Helpers
