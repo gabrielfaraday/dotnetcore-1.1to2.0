@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using DotNetCoreAppExample.Application.ViewModels;
 using DotNetCoreAppExample.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DotNetCoreAppExample.Web.Controllers
 {
@@ -23,6 +24,7 @@ namespace DotNetCoreAppExample.Web.Controllers
         }
 
         [Route("detalhes/{id:guid}")]
+        [Authorize(Policy = "PermiteVerContatos")]
         public IActionResult Details(Guid? id)
         {
             if (id == null)
@@ -37,6 +39,7 @@ namespace DotNetCoreAppExample.Web.Controllers
         }
 
         [Route("novo-contato")]
+        [Authorize(Policy = "PermiteGerenciarContatos")]
         public IActionResult Create()
         {
             return View();
@@ -45,6 +48,7 @@ namespace DotNetCoreAppExample.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("novo-contato")]
+        [Authorize(Policy = "PermiteGerenciarContatos")]
         public IActionResult Create(ContatoViewModel contatoViewModel)
         {
             if (!ModelState.IsValid)
@@ -56,6 +60,7 @@ namespace DotNetCoreAppExample.Web.Controllers
         }
 
         [Route("alterar-contato/{id:guid}")]
+        [Authorize(Policy = "PermiteGerenciarContatos")]
         public IActionResult Edit(Guid? id)
         {
             if (id == null)
@@ -72,6 +77,7 @@ namespace DotNetCoreAppExample.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("alterar-contato/{id:guid}")]
+        [Authorize(Policy = "PermiteGerenciarContatos")]
         public IActionResult Edit(ContatoViewModel contatoViewModel)
         {
             if (!ModelState.IsValid) return View(contatoViewModel);
@@ -82,6 +88,7 @@ namespace DotNetCoreAppExample.Web.Controllers
         }
 
         [Route("remover-contato/{id:guid}")]
+        [Authorize(Policy = "PermiteGerenciarContatos")]
         public IActionResult Delete(Guid? id)
         {
             if (id == null)
@@ -98,6 +105,7 @@ namespace DotNetCoreAppExample.Web.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Route("remover-contato/{id:guid}")]
+        [Authorize(Policy = "PermiteGerenciarContatos")]
         public IActionResult DeleteConfirmed(Guid id)
         {
             _contatoAppService.Delete(id);
@@ -105,6 +113,7 @@ namespace DotNetCoreAppExample.Web.Controllers
         }
 
         [Route("adicionar-telefone/{id:guid}")]
+        [Authorize(Policy = "PermiteGerenciarTelefones")]
         public IActionResult AdicionarTelefone(Guid? id)
         {
             if (id == null)
@@ -117,6 +126,7 @@ namespace DotNetCoreAppExample.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("adicionar-telefone/{id:guid}")]
+        [Authorize(Policy = "PermiteGerenciarTelefones")]
         public IActionResult AdicionarTelefone(ContatoViewModel contatoViewModel)
         {
             ModelState.Clear();
@@ -140,6 +150,7 @@ namespace DotNetCoreAppExample.Web.Controllers
         }
 
         [Route("alterar-telefone/{id:guid}")]
+        [Authorize(Policy = "PermiteGerenciarTelefones")]
         public IActionResult AlterarTelefone(Guid? id)
         {
             if (id == null)
@@ -160,6 +171,7 @@ namespace DotNetCoreAppExample.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("alterar-telefone/{id:guid}")]
+        [Authorize(Policy = "PermiteGerenciarTelefones")]
         public IActionResult AlterarTelefone(ContatoViewModel contatoViewModel)
         {
             ModelState.Clear();
@@ -182,6 +194,7 @@ namespace DotNetCoreAppExample.Web.Controllers
         }
 
         [Route("listar-telefones/{id:guid}")]
+        [Authorize(Policy = "PermiteGerenciarTelefones")]
         public IActionResult ObterTelefones(Guid id)
         {
             return PartialView("_DetalhesTelefones", _contatoAppService.FindById(id));

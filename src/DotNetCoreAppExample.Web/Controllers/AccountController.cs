@@ -10,6 +10,7 @@ using Microsoft.Extensions.Options;
 using DotNetCoreAppExample.Infra.CrossCutting.Identity.Models;
 using DotNetCoreAppExample.Infra.CrossCutting.Identity.Services;
 using DotNetCoreAppExample.Infra.CrossCutting.Identity.Models.AccountViewModels;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace DotNetCoreAppExample.Web.Controllers
 {
@@ -111,6 +112,11 @@ namespace DotNetCoreAppExample.Web.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+
+                user.Claims.Add(new IdentityUserClaim<string> { ClaimType = "Contatos", ClaimValue = "Ver" });
+                user.Claims.Add(new IdentityUserClaim<string> { ClaimType = "Contatos", ClaimValue = "Gerenciar" });
+                user.Claims.Add(new IdentityUserClaim<string> { ClaimType = "Contatos", ClaimValue = "GerenciarTelefones" });
+
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

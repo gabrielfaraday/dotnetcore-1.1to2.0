@@ -44,6 +44,13 @@ namespace DotNetCoreAppExample.Web
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("PermiteVerContatos", policy => policy.RequireClaim("Contatos", "Ver"));
+                options.AddPolicy("PermiteGerenciarContatos", policy => policy.RequireClaim("Contatos", "Gerenciar"));
+                options.AddPolicy("PermiteGerenciarTelefones", policy => policy.RequireClaim("Contatos", "GerenciarTelefones"));
+            });
+
             services.AddMvc();
             services.AddAutoMapper();
 
