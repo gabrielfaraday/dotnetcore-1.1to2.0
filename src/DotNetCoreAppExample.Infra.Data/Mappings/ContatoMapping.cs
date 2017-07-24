@@ -23,6 +23,9 @@ namespace DotNetCoreAppExample.Infra.Data.Mappings
                 .HasColumnType("datetime")
                 .IsRequired();
 
+            builder.Property(c => c.DataNascimento)
+                .HasColumnType("datetime");
+
             builder.Property(c => c.Ativo)
                .IsRequired();
 

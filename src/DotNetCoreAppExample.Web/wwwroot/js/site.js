@@ -18,6 +18,16 @@
     }
 }
 
+function PrepararDatepicker() {
+    $('#DataNascimento').datepicker({
+        format: "dd/mm/yyyy",
+        startDate: "01/01/1900",
+        language: "pt-BR",
+        orientation: "bottom right",
+        autoclose: true
+    });
+}
+
 function AjaxModal() {
     $(document).ready(function () {
         $(function () {

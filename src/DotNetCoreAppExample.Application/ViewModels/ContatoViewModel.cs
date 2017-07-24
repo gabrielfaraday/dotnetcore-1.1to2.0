@@ -37,6 +37,9 @@ namespace DotNetCoreAppExample.Application.ViewModels
         [ScaffoldColumn(false)]
         public Guid AtivadoPor { get; set; }
 
+        [DisplayName("Data de Nascimento")]
+        public DateTime? DataNascimento { get; set; }
+
         [ScaffoldColumn(false)]
         public Guid? EnderecoId { get; set; }
 

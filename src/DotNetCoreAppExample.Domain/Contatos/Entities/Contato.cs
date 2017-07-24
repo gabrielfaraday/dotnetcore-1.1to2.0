@@ -7,12 +7,12 @@ namespace DotNetCoreAppExample.Domain.Contatos.Entities
 {
     public class Contato : EntityBase<Contato>
     {
-        public Contato(Guid id, string nome, string email)
+        public Contato(Guid id, string nome, string email, DateTime? dataNascimento)
         {
             Id = id;
             Nome = nome;
             Email = email;
-            Ativo = true;
+            DataNascimento = dataNascimento;
         }
 
         // Construtor para o EF
@@ -23,6 +23,7 @@ namespace DotNetCoreAppExample.Domain.Contatos.Entities
         public DateTime DataCadastro { get; private set; }
         public bool Ativo { get; private set; }
         public Guid AtivadoPor { get; private set; }
+        public DateTime? DataNascimento { get; private set; }
         public Guid? EnderecoId { get; private set; }
 
         // EF propriedades de navegacao
