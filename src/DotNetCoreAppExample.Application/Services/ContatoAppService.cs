@@ -27,7 +27,6 @@ namespace DotNetCoreAppExample.Application.Services
 
         public TelefoneViewModel AdicionarTelefone(TelefoneViewModel telefoneViewModel)
         {
-            throw new Exception("ERRO GABRIEL");
             var telefone = _service.AdicionarTelefone(_mapper.Map<Telefone>(telefoneViewModel));
 
             if (telefone.ValidationResult.IsValid)

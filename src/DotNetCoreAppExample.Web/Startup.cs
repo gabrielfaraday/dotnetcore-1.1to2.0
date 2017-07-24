@@ -9,6 +9,8 @@ using Microsoft.Extensions.Logging;
 using DotNetCoreAppExample.Infra.CrossCutting.IoC;
 using DotNetCoreAppExample.Infra.CrossCutting.Identity.Data;
 using DotNetCoreAppExample.Infra.CrossCutting.Identity.Models;
+using Microsoft.AspNetCore.Mvc;
+using DotNetCoreAppExample.Infra.CrossCutting.AspnetFilters;
 
 namespace DotNetCoreAppExample.Web
 {
@@ -51,7 +53,12 @@ namespace DotNetCoreAppExample.Web
                 options.AddPolicy("PermiteGerenciarTelefones", policy => policy.RequireClaim("Contatos", "GerenciarTelefones"));
             });
 
-            services.AddMvc();
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new ServiceFilterAttribute(typeof(GlobalExceptionHandlingFilter)));
+                options.Filters.Add(new ServiceFilterAttribute(typeof(GlobalActionLogger)));
+            });
+
             services.AddAutoMapper();
 
             DependencyInjectionBootStrapper.RegisterServices(services);
