@@ -36,8 +36,6 @@ namespace DotNetCoreAppExample.Services.Api
         }
 
         public IConfigurationRoot Configuration { get; }
-        //private const string SecretKey = "DotNetCoreAppExample@TokenSecretKey123";
-        //private readonly SymmetricSecurityKey _signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(SecretKey));
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
