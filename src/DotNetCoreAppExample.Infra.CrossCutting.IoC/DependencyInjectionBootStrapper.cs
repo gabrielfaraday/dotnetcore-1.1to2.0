@@ -5,10 +5,12 @@ using DotNetCoreAppExample.Domain.Contatos.Interfaces;
 using DotNetCoreAppExample.Domain.Contatos.Services;
 using DotNetCoreAppExample.Domain.Core.Interfaces;
 using DotNetCoreAppExample.Infra.CrossCutting.AspnetFilters;
+using DotNetCoreAppExample.Infra.CrossCutting.Identity.Models;
 using DotNetCoreAppExample.Infra.CrossCutting.Identity.Services;
 using DotNetCoreAppExample.Infra.Data;
 using DotNetCoreAppExample.Infra.Data.Context;
 using DotNetCoreAppExample.Infra.Data.Repositories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -19,7 +21,7 @@ namespace DotNetCoreAppExample.Infra.CrossCutting.IoC
         public static void RegisterServices(IServiceCollection services)
         {
             //ASPNET
-            
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             //Application
             services.AddSingleton(Mapper.Configuration);
@@ -35,7 +37,7 @@ namespace DotNetCoreAppExample.Infra.CrossCutting.IoC
             services.AddScoped<MainContext>();
 
             //Infra.Identity
-            //services.AddScoped<IUser, AspNetUser>();
+            services.AddScoped<IUser, AspNetUser>();
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
 

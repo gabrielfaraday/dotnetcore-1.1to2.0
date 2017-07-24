@@ -35,6 +35,9 @@ namespace DotNetCoreAppExample.Application.ViewModels
         public bool Ativo { get; set; }
 
         [ScaffoldColumn(false)]
+        public Guid AtivadoPor { get; set; }
+
+        [ScaffoldColumn(false)]
         public Guid? EnderecoId { get; set; }
 
         public ICollection<TelefoneViewModel> Telefones { get; set; }

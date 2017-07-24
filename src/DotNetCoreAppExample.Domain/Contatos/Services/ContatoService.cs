@@ -1,6 +1,7 @@
 ﻿using DotNetCoreAppExample.Domain.Contatos.Entities;
 using DotNetCoreAppExample.Domain.Contatos.Interfaces;
 using DotNetCoreAppExample.Domain.Core;
+using DotNetCoreAppExample.Domain.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 
@@ -8,37 +9,18 @@ namespace DotNetCoreAppExample.Domain.Contatos.Services
 {
     public class ContatoService : ServiceBase<Contato, IContatoRepository>, IContatoService
     {
-        public ContatoService(IContatoRepository contatoRepository) : base(contatoRepository)
+        readonly IUser _user;
+
+        public ContatoService(IContatoRepository contatoRepository, IUser user) : base(contatoRepository)
         {
+            _user = user;
         }
 
         public override Contato Add(Contato contato)
         {
-            //if (string.IsNullOrWhiteSpace(contato.Endereco.Logradouro) &&
-            //        string.IsNullOrWhiteSpace(contato.Endereco.Bairro) &&
-            //            string.IsNullOrWhiteSpace(contato.Endereco.Cidade) &&
-            //                string.IsNullOrWhiteSpace(contato.Endereco.CEP))
-            //    contato.LimparEndereco();
-
-            contato.AtivarContato();
+            contato.AtivarContato(_user.GetUserId()); //Obter usuário logado
 
             return base.Add(contato);
-        }
-
-        public override Contato Update(Contato contato)
-        {
-            //if (string.IsNullOrWhiteSpace(contato.Endereco.Logradouro) &&
-            //        string.IsNullOrWhiteSpace(contato.Endereco.Bairro) &&
-            //            string.IsNullOrWhiteSpace(contato.Endereco.Cidade) &&
-            //                string.IsNullOrWhiteSpace(contato.Endereco.CEP))
-            //{
-            //    if (contato.EnderecoId.HasValue)
-            //        RemoverEndereco(contato.EnderecoId.Value);
-
-            //    contato.LimparEndereco();
-            //}
-
-            return base.Update(contato);
         }
 
         public ICollection<Contato> ObterAtivos()

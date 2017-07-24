@@ -22,15 +22,17 @@ namespace DotNetCoreAppExample.Domain.Contatos.Entities
         public string Email { get; private set; }
         public DateTime DataCadastro { get; private set; }
         public bool Ativo { get; private set; }
+        public Guid AtivadoPor { get; private set; }
         public Guid? EnderecoId { get; private set; }
 
         // EF propriedades de navegacao
         public virtual Endereco Endereco { get; private set; }
         public virtual ICollection<Telefone> Telefones { get; set; }
 
-        public void AtivarContato()
+        public void AtivarContato(Guid userId)
         {
             Ativo = true;
+            AtivadoPor = userId;
         }
 
         public void AtribuirEndereco(Endereco endereco)

@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DotNetCoreAppExample.Domain.Core\DotNetCoreAppExample.Domain.Core.csproj" />
     <ProjectReference Include="..\DotNetCoreAppExample.Domain\DotNetCoreAppExample.Domain.csproj" />
   </ItemGroup>
 
