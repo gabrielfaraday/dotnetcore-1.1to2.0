@@ -31,7 +31,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreAppExample.Infra.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreAppExample.Infra.CrossCutting.Identity", "src\DotNetCoreAppExample.Infra.CrossCutting.Identity\DotNetCoreAppExample.Infra.CrossCutting.Identity.csproj", "{51E6C24D-7DB7-4B02-B667-BE76C2E41F56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCoreAppExample.Infra.CrossCutting.AspnetFilters", "src\DotNetCoreAppExample.Infra.CrossCutting.AspnetFilters\DotNetCoreAppExample.Infra.CrossCutting.AspnetFilters.csproj", "{B22A004A-1064-4DE6-A20C-1660CF821D47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreAppExample.Infra.CrossCutting.AspnetFilters", "src\DotNetCoreAppExample.Infra.CrossCutting.AspnetFilters\DotNetCoreAppExample.Infra.CrossCutting.AspnetFilters.csproj", "{B22A004A-1064-4DE6-A20C-1660CF821D47}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCoreAppExample.Services.Api", "src\DotNetCoreAppExample.Services.Api\DotNetCoreAppExample.Services.Api.csproj", "{3F3644BB-D852-4D0B-8FC2-3C7D5D6DAFDB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +73,10 @@ Global
 		{B22A004A-1064-4DE6-A20C-1660CF821D47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B22A004A-1064-4DE6-A20C-1660CF821D47}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B22A004A-1064-4DE6-A20C-1660CF821D47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F3644BB-D852-4D0B-8FC2-3C7D5D6DAFDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F3644BB-D852-4D0B-8FC2-3C7D5D6DAFDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F3644BB-D852-4D0B-8FC2-3C7D5D6DAFDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F3644BB-D852-4D0B-8FC2-3C7D5D6DAFDB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,5 +92,6 @@ Global
 		{C5008EC3-1BF8-4A43-8D98-33E083C39681} = {BEC744E1-1493-456E-869C-31C757824623}
 		{51E6C24D-7DB7-4B02-B667-BE76C2E41F56} = {BEC744E1-1493-456E-869C-31C757824623}
 		{B22A004A-1064-4DE6-A20C-1660CF821D47} = {BEC744E1-1493-456E-869C-31C757824623}
+		{3F3644BB-D852-4D0B-8FC2-3C7D5D6DAFDB} = {847B9CC2-D015-4EAC-B42C-20F676479CF5}
 	EndGlobalSection
 EndGlobal

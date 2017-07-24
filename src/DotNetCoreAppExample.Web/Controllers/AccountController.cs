@@ -124,6 +124,7 @@ namespace DotNetCoreAppExample.Web.Controllers
                 user.Claims.Add(new IdentityUserClaim<string> { ClaimType = "Contatos", ClaimValue = "GerenciarTelefones" });
 
                 var result = await _userManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
                     var usuarioDados = new UsuarioDadosViewModel
