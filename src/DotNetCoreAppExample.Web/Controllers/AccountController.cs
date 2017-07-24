@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -11,6 +12,8 @@ using DotNetCoreAppExample.Infra.CrossCutting.Identity.Models;
 using DotNetCoreAppExample.Infra.CrossCutting.Identity.Services;
 using DotNetCoreAppExample.Infra.CrossCutting.Identity.Models.AccountViewModels;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using DotNetCoreAppExample.Application.ViewModels;
+using DotNetCoreAppExample.Application.Interfaces;
 
 namespace DotNetCoreAppExample.Web.Controllers
 {
@@ -23,6 +26,7 @@ namespace DotNetCoreAppExample.Web.Controllers
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
         private readonly string _externalCookieScheme;
+        readonly IUsuarioDadosAppService _usuarioDadosAppService;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
@@ -30,7 +34,8 @@ namespace DotNetCoreAppExample.Web.Controllers
             IOptions<IdentityCookieOptions> identityCookieOptions,
             IEmailSender emailSender,
             ISmsSender smsSender,
-            ILoggerFactory loggerFactory)
+            ILoggerFactory loggerFactory,
+            IUsuarioDadosAppService usuarioDadosAppService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -38,6 +43,7 @@ namespace DotNetCoreAppExample.Web.Controllers
             _emailSender = emailSender;
             _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
+            _usuarioDadosAppService = usuarioDadosAppService;
         }
 
         //
@@ -120,6 +126,26 @@ namespace DotNetCoreAppExample.Web.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    var usuarioDados = new UsuarioDadosViewModel
+                    {
+                        Id = Guid.Parse(user.Id),
+                        Nome = model.Nome,
+                        CPF = model.CPF
+                    };
+
+                    var retorno = _usuarioDadosAppService.Add(usuarioDados);
+
+                    if (!retorno.ValidationResult.IsValid)
+                    {
+                        retorno
+                            .ValidationResult
+                            .Errors.ToList()
+                            .ForEach(e => ModelState.AddModelError(string.Empty, e.ErrorMessage));
+
+                        await _userManager.DeleteAsync(user);
+                        return View(model);
+                    }
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
                     // Send an email with this link
                     //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

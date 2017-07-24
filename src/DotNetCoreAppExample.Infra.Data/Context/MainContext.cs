@@ -7,6 +7,7 @@ using DotNetCoreAppExample.Infra.Data.Mappings;
 using System.Linq;
 using System.Reflection;
 using System;
+using DotNetCoreAppExample.Domain.Usuarios.Entities;
 
 namespace DotNetCoreAppExample.Infra.Data.Context
 {
@@ -16,11 +17,15 @@ namespace DotNetCoreAppExample.Infra.Data.Context
         public DbSet<Endereco> Enderecos { get; set; }
         public DbSet<Telefone> Telefones { get; set; }
 
+        public DbSet<UsuarioDados> UsuarioDados { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.AddConfiguration(new ContatoMapping());
             modelBuilder.AddConfiguration(new EnderecoMapping());
             modelBuilder.AddConfiguration(new TelefoneMapping());
+
+            modelBuilder.AddConfiguration(new UsuarioDadosMapping());
 
             base.OnModelCreating(modelBuilder);
         }

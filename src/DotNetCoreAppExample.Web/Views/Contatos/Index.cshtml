@@ -1,4 +1,6 @@
-﻿@model IEnumerable<DotNetCoreAppExample.Application.ViewModels.ContatoViewModel>
+﻿@using DotNetCoreAppExample.Domain.Core.Interfaces
+@inject IUser user
+@model IEnumerable<DotNetCoreAppExample.Application.ViewModels.ContatoViewModel>
 
 @{
     ViewData["Title"] = "Contatos";
@@ -48,18 +50,27 @@
                     }
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                    </a>
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">
-                        <span class="glyphicon glyphicon-search"></span>
-                    </a>
+                    @{
+                        if (user.GetClaimsIdentity().Any(c => c.Type == "Contatos" && c.Value == "Ver"))
+                        {
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </a>
+                        }
 
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">
-                        <span class="glyphicon glyphicon-trash"></span>
-                    </a>
+                        if (user.GetClaimsIdentity().Any(c => c.Type == "Contatos" && c.Value == "Gerenciar"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </a>
+                        }
+                    }
                 </td>
             </tr>
-        }
+                        }
     </tbody>
 </table>
