@@ -18,14 +18,14 @@ namespace DotNetCoreAppExample.Services.Api.Controllers
 
         [HttpGet]
         [Route("contatos")]
-        [AllowAnonymous]
+        [Authorize(Policy = "PermiteVerContatos")]
         public IEnumerable<ContatoViewModel> Get()
         {
             return _contatoAppService.ObterAtivos();
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize(Policy = "PermiteVerContatos")]
         [Route("contatos/{id:guid}")]
         public ContatoViewModel Get(Guid id)
         {
