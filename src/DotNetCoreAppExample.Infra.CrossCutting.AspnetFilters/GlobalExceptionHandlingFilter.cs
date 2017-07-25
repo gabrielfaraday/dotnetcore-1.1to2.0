@@ -22,17 +22,19 @@ namespace DotNetCoreAppExample.Infra.CrossCutting.AspnetFilters
         public void OnException(ExceptionContext context)
         {
             if (_hostingEnviroment.IsProduction())
+            {
                 _logger.LogError(1, context.Exception, context.Exception.Message);
 
-            var result = new ViewResult { ViewName = "Error" };
-            var modelData = new EmptyModelMetadataProvider();
-            result.ViewData = new ViewDataDictionary(modelData, context.ModelState)
-            {
-                {"MensagemErro", context.Exception.Message}
-            };
+                var result = new ViewResult { ViewName = "Error" };
+                var modelData = new EmptyModelMetadataProvider();
+                result.ViewData = new ViewDataDictionary(modelData, context.ModelState)
+                {
+                    {"MensagemErro", context.Exception.Message}
+                };
 
-            context.ExceptionHandled = true;
-            context.Result = result;
+                context.ExceptionHandled = true;
+                context.Result = result;
+            }
         }
     }
 }

@@ -42,20 +42,6 @@ namespace DotNetCoreAppExample.Infra.Data.Repositories
                 }, new { pid = id }).AsQueryable();
 
             return lookup.Values.FirstOrDefault();
-
-            //var evento = Db.Database.GetDbConnection().Query<Contato, Telefone, Endereco, Contato>(sql,
-            //    (c, t, e) =>
-            //    {
-            //        if (t != null)
-            //            c.AtribuirTelefone(t);
-
-            //        if (e != null)
-            //            c.AtribuirEndereco(e);
-
-            //        return c;
-            //    }, new { pid = id });
-
-            //return evento.FirstOrDefault();
         }
 
         public Telefone AdicionarTelefone(Telefone telefone)
