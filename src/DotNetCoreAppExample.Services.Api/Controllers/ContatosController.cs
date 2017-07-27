@@ -64,5 +64,29 @@ namespace DotNetCoreAppExample.Services.Api.Controllers
             _contatoAppService.Delete(id);
             return Response();
         }
+
+        [HttpPost]
+        [Route("telefone")]
+        [Authorize(Policy = "PermiteGerenciarTelefones")]
+        public IActionResult Post([FromBody]TelefoneViewModel telefoneViewModel)
+        {
+            if (!ModelState.IsValid)
+                return Response();
+
+            var retorno = _contatoAppService.AdicionarTelefone(telefoneViewModel);
+            return Response(viewModel: retorno);
+        }
+
+        [HttpPut]
+        [Route("telefone")]
+        [Authorize(Policy = "PermiteGerenciarTelefones")]
+        public IActionResult Put([FromBody]TelefoneViewModel telefoneViewModel)
+        {
+            if (!ModelState.IsValid)
+                return Response();
+
+            var retorno = _contatoAppService.AtualizarTelefone(telefoneViewModel);
+            return Response(viewModel: retorno);
+        }
     }
 }
