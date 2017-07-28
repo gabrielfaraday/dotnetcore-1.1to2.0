@@ -2,6 +2,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using DotNetCoreAppExample.Application.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 
 namespace DotNetCoreAppExample.Services.Api.Controllers
 {
@@ -19,15 +20,26 @@ namespace DotNetCoreAppExample.Services.Api.Controllers
                 });
             }
 
+            var errorMessages = new List<string>();
+
             viewModel?
                 .ValidationResult
                 .Errors.ToList()
-                .ForEach(e => ModelState.AddModelError(string.Empty, e.ErrorMessage));
+                .ForEach(e => errorMessages.Add(e.ErrorMessage));
+
+            ModelState
+                .Values
+                .SelectMany(v => v.Errors).ToList()
+                .ForEach(error =>
+                {
+                    var errorMsg = error.Exception == null ? error.ErrorMessage : error.Exception.Message;
+                    errorMessages.Add(errorMsg);
+                });
 
             return BadRequest(new
             {
                 success = false,
-                errors = ModelState.Values.Select(v => v.Errors)
+                errors = errorMessages
             });
         }
 

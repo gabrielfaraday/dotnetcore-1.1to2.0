@@ -18,7 +18,7 @@ namespace DotNetCoreAppExample.Services.Api.Controllers
 
         [HttpGet]
         [Route("contatos")]
-        [Authorize(Policy = "PermiteVerContatos")]
+        [AllowAnonymous]
         public IEnumerable<ContatoViewModel> Get()
         {
             return _contatoAppService.ObterAtivos();
