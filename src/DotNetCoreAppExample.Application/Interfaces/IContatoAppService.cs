@@ -9,8 +9,6 @@ namespace DotNetCoreAppExample.Application.Interfaces
         ContatoViewModel ObterPorEmail(string email);
         ICollection<ContatoViewModel> ObterAtivos();
 
-        void RemoverEndereco(Guid enderecoId);
-
         TelefoneViewModel AdicionarTelefone(TelefoneViewModel telefone);
         TelefoneViewModel AtualizarTelefone(TelefoneViewModel telefone);
         TelefoneViewModel ObterTelefonePorId(Guid telefoneId);

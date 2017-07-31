@@ -15,6 +15,13 @@ namespace DotNetCoreAppExample.Application.Services
         {
         }
 
+        public override void Delete(Guid id)
+        {
+            var contato = FindById(id);
+            _service.RemoverEndereco(contato.EnderecoId);
+            base.Delete(id);
+        }
+
         public ICollection<ContatoViewModel> ObterAtivos()
         {
             return _mapper.Map<ICollection<ContatoViewModel>>(_service.ObterAtivos());
@@ -54,12 +61,6 @@ namespace DotNetCoreAppExample.Application.Services
         public TelefoneViewModel ObterTelefonePorId(Guid id)
         {
             return _mapper.Map<TelefoneViewModel>(_service.ObterTelefonePorId(id));
-        }
-
-        public void RemoverEndereco(Guid enderecoId)
-        {
-            _service.RemoverEndereco(enderecoId);
-            Commit();
         }
     }
 }

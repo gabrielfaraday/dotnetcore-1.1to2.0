@@ -16,7 +16,7 @@ namespace DotNetCoreAppExample.Services.Api.Controllers
                 return Ok(new
                 {
                     success = true,
-                    data = result
+                    data = result ?? viewModel
                 });
             }
 

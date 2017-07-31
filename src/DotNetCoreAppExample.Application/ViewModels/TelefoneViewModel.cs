@@ -15,12 +15,12 @@ namespace DotNetCoreAppExample.Application.ViewModels
         public Guid Id { get; set; }
 
         [Required(ErrorMessage = "Informe o DDD do telefone")]
-        [StringLength(2, ErrorMessage = "Deve ter 2 caracteres")]
+        [StringLength(2, ErrorMessage = "DDD deve ter 2 caracteres")]
         public string DDD { get; set; }
 
         [Required(ErrorMessage = "Informe o número do telefone")]
-        [MaxLength(9, ErrorMessage = "Máximo 9 caracteres")]
-        [MinLength(8, ErrorMessage = "Minimo 8 caracteres")]
+        [MaxLength(9, ErrorMessage = "Número deve no máximo 9 caracteres")]
+        [MinLength(8, ErrorMessage = "Número deve no minimo 8 caracteres")]
         [DisplayName("Número")]
         public string Numero { get; set; }
 

@@ -41,7 +41,7 @@ namespace DotNetCoreAppExample.Application.ViewModels
         public DateTime? DataNascimento { get; set; }
 
         [ScaffoldColumn(false)]
-        public Guid? EnderecoId { get; set; }
+        public Guid EnderecoId { get; set; }
 
         public ICollection<TelefoneViewModel> Telefones { get; set; }
 
