@@ -1,3 +1,5 @@
+### Criando nova aplicação
+
 #### ATENÇÃO: NÃO ABRA NENHUMA SOLUTION NO VS ATÉ QUE SOLICITADO MAIS ABAIXO.
 
 1- Clone a ultima versão da aplicação deste repositório para sua máquina. 
@@ -53,3 +55,23 @@
 OBS: para funcionar a integração com o banco, deve ser verificado as connection strings e adicionado/rodado as migrations.
 
 #### PARABÉNS! AGORA É SÓ CODAR! :)
+
+### Utilizando banco de dados MySql
+
+1- Nos projetos Web, Api, CrossCutting.Identity e Infra.Data remover a referência "Microsoft.EntityFrameworkCore.SqlServer" e adicionar "Pomelo.EntityFrameworkCore.MySql".
+
+2- Nos projetos Infra.Data e CrossCutting.Identity alterar o context para usar o mySql:
+	
+	- substituir a linha "optionsBuilder.UseSqlServer(config.GetConnectionString("DefaultConnection"));" por "optionsBuilder.UseMySql(config.GetConnectionString("DefaultConnection"));"
+	
+3- Nos projetos Web, Api, CrossCutting.Identity e Infra.Data alterar a connection string no arquivo appsettings.json para o padrão mySql:
+
+    - Exemplo: "Server=localhost;database=nomeDoBanco;uid=usuario;pwd=senha;"
+
+4- Nos projetos Infra.Data e CrossCutting.Identity remover os arquivos da pasta Migrations.
+
+5- Nos projetos Web e Api alterar o arquivo Startup.cs para usar mysql:
+
+	- substituir a linha "options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));" para "options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));"
+	
+Mais detalhes: https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql
