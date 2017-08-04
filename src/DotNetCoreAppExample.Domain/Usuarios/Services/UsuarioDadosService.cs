@@ -13,19 +13,24 @@ namespace DotNetCoreAppExample.Domain.Usuarios.Services
 
         public override UsuarioDados Add(UsuarioDados entity)
         {
-            entity.EstaValido();
+            if (!entity.EstaValido() || CPFJaFoiCadastrado(entity))
+                return entity;
 
+            return _repository.Add(entity);
+        }
+
+        private bool CPFJaFoiCadastrado(UsuarioDados entity)
+        {
             if (_repository.ObterUsuarioPorCPF(entity.CPF) != null)
             {
                 entity
                     .ValidationResult.Errors
                     .Add(new ValidationFailure("CPF", "O CPF informado já foi cadastrado anteriormente."));
+
+                return true;
             }
 
-            if (!entity.ValidationResult.IsValid)
-                return entity;
-
-            return _repository.Add(entity);
+            return false;
         }
     }
 }

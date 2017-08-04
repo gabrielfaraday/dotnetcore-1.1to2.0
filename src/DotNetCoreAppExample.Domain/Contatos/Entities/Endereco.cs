@@ -40,6 +40,7 @@ namespace DotNetCoreAppExample.Domain.Contatos.Entities
             ValidarCidade();
             ValidarEstado();
             ValidarNumero();
+            ValidarComplemento();
 
             ValidationResult = Validate(this);
 
@@ -65,7 +66,7 @@ namespace DotNetCoreAppExample.Domain.Contatos.Entities
         {
             RuleFor(c => c.Bairro)
                             .NotEmpty().WithMessage("O Bairro precisa ser fornecido")
-                            .Length(2, 50).WithMessage("O Bairro precisa ter entre 2 e 150 caracteres");
+                            .Length(2, 50).WithMessage("O Bairro precisa ter entre 2 e 50 caracteres");
         }
 
         private void ValidarCEP()

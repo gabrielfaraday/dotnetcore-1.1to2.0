@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.15
+VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1-Presentation", "1-Presentation", "{07844CBC-C098-44AB-B52C-D673DDD4BAA3}"
 EndProject
@@ -37,7 +37,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreAppExample.Servic
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{69F1AC23-884E-4AAE-9701-D4602F404C60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCoreAppExample.Domain.Tests", "tests\DotNetCoreAppExample.Domain.Tests\DotNetCoreAppExample.Domain.Tests.csproj", "{E38BF3DA-4E7A-4134-B0B7-72FCE3BB3014}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCoreAppExample.Domain.Tests", "tests\DotNetCoreAppExample.Domain.Tests\DotNetCoreAppExample.Domain.Tests.csproj", "{E38BF3DA-4E7A-4134-B0B7-72FCE3BB3014}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

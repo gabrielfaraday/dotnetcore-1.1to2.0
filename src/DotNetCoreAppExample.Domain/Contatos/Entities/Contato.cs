@@ -30,7 +30,7 @@ namespace DotNetCoreAppExample.Domain.Contatos.Entities
         public virtual Endereco Endereco { get; private set; }
         public virtual ICollection<Telefone> Telefones { get; set; }
 
-        public void AtivarContato(Guid userId)
+        public virtual void AtivarContato(Guid userId)
         {
             Ativo = true;
             AtivadoPor = userId;
@@ -99,7 +99,8 @@ namespace DotNetCoreAppExample.Domain.Contatos.Entities
         {
             foreach (var telefone in Telefones)
             {
-                if (telefone.EstaValido()) return;
+                if (telefone.EstaValido())
+                    return;
 
                 foreach (var erro in telefone.ValidationResult.Errors)
                     ValidationResult.Errors.Add(erro);

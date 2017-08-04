@@ -1,6 +1,7 @@
 ﻿using System;
 using DotNetCoreAppExample.Domain.Core;
 using FluentValidation;
+using DotNetCoreAppExample.Domain._Validations;
 
 namespace DotNetCoreAppExample.Domain.Usuarios.Entities
 {
@@ -41,7 +42,7 @@ namespace DotNetCoreAppExample.Domain.Usuarios.Entities
         {
             RuleFor(c => c.CPF)
                 .NotEmpty().WithMessage("Informe o CPF do usuário.")
-                .Length(11, 11).WithMessage("O CPF deve ter 11 caracteres.");
+                .Must(CPFValidation.CPFValido).WithMessage("CPF inválido");
         }
 
         #endregion [ Validações ]
