@@ -13,6 +13,8 @@ namespace DotNetCoreAppExample.Infra.CrossCutting.Identity.Data
         {
         }
 
+        public ApplicationDbContext() { } //Parameterless constructor necessário para o .NET Command CLI para EF
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var config = new ConfigurationBuilder()

@@ -16,6 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DotNetCoreAppExample.Domain\DotNetCoreAppExample.Domain.csproj" />
   </ItemGroup>
 
