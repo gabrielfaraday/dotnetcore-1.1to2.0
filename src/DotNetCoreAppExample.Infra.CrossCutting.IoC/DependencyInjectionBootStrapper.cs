@@ -9,6 +9,7 @@ using DotNetCoreAppExample.Domain.Usuarios.Services;
 using DotNetCoreAppExample.Infra.CrossCutting.AspnetFilters;
 using DotNetCoreAppExample.Infra.CrossCutting.Identity.Models;
 using DotNetCoreAppExample.Infra.CrossCutting.Identity.Services;
+using DotNetCoreAppExample.Infra.CrossCutting.LoggerProviders.ElasticSearch;
 using DotNetCoreAppExample.Infra.Data;
 using DotNetCoreAppExample.Infra.Data.Context;
 using DotNetCoreAppExample.Infra.Data.Repositories;
@@ -41,16 +42,19 @@ namespace DotNetCoreAppExample.Infra.CrossCutting.IoC
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<MainContext>();
 
-            //Infra.Identity
+            //Infra.CrossCutting.Identity
             services.AddScoped<IUser, AspNetUser>();
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
 
-            //Infra.Filtros
+            //Infra.CrossCutting.Filtros
             services.AddScoped<ILogger<GlobalExceptionHandlingFilter>, Logger<GlobalExceptionHandlingFilter>>();
             services.AddScoped<ILogger<GlobalActionLogger>, Logger<GlobalActionLogger>>();
             services.AddScoped<GlobalExceptionHandlingFilter>();
             services.AddScoped<GlobalActionLogger>();
+
+            //Infra.CrossCutting.LoggerProviders
+            services.AddSingleton<ESClientProvider>();
         }
     }
 }

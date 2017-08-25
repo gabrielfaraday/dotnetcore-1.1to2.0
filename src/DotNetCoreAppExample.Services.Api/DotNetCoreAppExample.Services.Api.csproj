@@ -31,6 +31,7 @@
     <ProjectReference Include="..\DotNetCoreAppExample.Domain\DotNetCoreAppExample.Domain.csproj" />
     <ProjectReference Include="..\DotNetCoreAppExample.Infra.CrossCutting.AspnetFilters\DotNetCoreAppExample.Infra.CrossCutting.AspnetFilters.csproj" />
     <ProjectReference Include="..\DotNetCoreAppExample.Infra.CrossCutting.IoC\DotNetCoreAppExample.Infra.CrossCutting.IoC.csproj" />
+    <ProjectReference Include="..\DotNetCoreAppExample.Infra.CrossCutting.LoggerProviders\DotNetCoreAppExample.Infra.CrossCutting.LoggerProviders.csproj" />
   </ItemGroup>
 
 </Project>

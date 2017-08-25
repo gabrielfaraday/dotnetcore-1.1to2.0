@@ -13,6 +13,7 @@
     <ProjectReference Include="..\DotNetCoreAppExample.Domain\DotNetCoreAppExample.Domain.csproj" />
     <ProjectReference Include="..\DotNetCoreAppExample.Infra.CrossCutting.AspnetFilters\DotNetCoreAppExample.Infra.CrossCutting.AspnetFilters.csproj" />
     <ProjectReference Include="..\DotNetCoreAppExample.Infra.CrossCutting.Identity\DotNetCoreAppExample.Infra.CrossCutting.Identity.csproj" />
+    <ProjectReference Include="..\DotNetCoreAppExample.Infra.CrossCutting.LoggerProviders\DotNetCoreAppExample.Infra.CrossCutting.LoggerProviders.csproj" />
     <ProjectReference Include="..\DotNetCoreAppExample.Infra.Data\DotNetCoreAppExample.Infra.Data.csproj" />
   </ItemGroup>
 

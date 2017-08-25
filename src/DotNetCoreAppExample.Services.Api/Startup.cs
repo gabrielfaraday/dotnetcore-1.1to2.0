@@ -20,6 +20,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using DotNetCoreAppExample.Infra.CrossCutting.Identity.Authorization;
 using System;
+using DotNetCoreAppExample.Infra.CrossCutting.LoggerProviders.ElasticSearch;
+using DotNetCoreAppExample.Infra.CrossCutting.LoggerProviders;
 
 namespace DotNetCoreAppExample.Services.Api
 {
@@ -85,16 +87,17 @@ namespace DotNetCoreAppExample.Services.Api
 
             services.AddAutoMapper();
 
+            services.Configure<ESClientProviderConfig>(Configuration.GetSection("ElasticSearch"));
+
             DependencyInjectionBootStrapper.RegisterServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app,
-                              IHostingEnvironment env,
-                              ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+            loggerFactory.AddElasticSearchLogger(app.ApplicationServices);
 
             var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtTokenOptions));
             var jwtAppSettingSecurity = Configuration.GetSection(nameof(JwtTokenSecurity));

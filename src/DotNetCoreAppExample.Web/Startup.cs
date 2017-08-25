@@ -11,6 +11,8 @@ using DotNetCoreAppExample.Infra.CrossCutting.Identity.Data;
 using DotNetCoreAppExample.Infra.CrossCutting.Identity.Models;
 using Microsoft.AspNetCore.Mvc;
 using DotNetCoreAppExample.Infra.CrossCutting.AspnetFilters;
+using DotNetCoreAppExample.Infra.CrossCutting.LoggerProviders.ElasticSearch;
+using DotNetCoreAppExample.Infra.CrossCutting.LoggerProviders;
 
 namespace DotNetCoreAppExample.Web
 {
@@ -61,6 +63,8 @@ namespace DotNetCoreAppExample.Web
 
             services.AddAutoMapper();
 
+            services.Configure<ESClientProviderConfig>(Configuration.GetSection("ElasticSearch"));
+
             DependencyInjectionBootStrapper.RegisterServices(services);
         }
 
@@ -69,6 +73,7 @@ namespace DotNetCoreAppExample.Web
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+            loggerFactory.AddElasticSearchLogger(app.ApplicationServices);
 
             if (env.IsDevelopment())
             {
