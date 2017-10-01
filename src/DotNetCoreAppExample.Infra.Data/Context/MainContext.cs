@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using DotNetCoreAppExample.Infra.Data.Extensions;
 using DotNetCoreAppExample.Infra.Data.Mappings;
 using System.Linq;
-using System.Reflection;
 using System;
 using DotNetCoreAppExample.Domain.Usuarios.Entities;
 

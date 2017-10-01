@@ -8,7 +8,6 @@ using Microsoft.Extensions.Logging;
 using DotNetCoreAppExample.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using DotNetCoreAppExample.Infra.CrossCutting.Identity.Models.AccountViewModels;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using DotNetCoreAppExample.Application.ViewModels;
 using DotNetCoreAppExample.Infra.CrossCutting.Identity.Authorization;
 using Microsoft.Extensions.Options;

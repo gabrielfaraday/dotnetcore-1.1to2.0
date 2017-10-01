@@ -11,7 +11,6 @@ using Microsoft.Extensions.Options;
 using DotNetCoreAppExample.Infra.CrossCutting.Identity.Models;
 using DotNetCoreAppExample.Infra.CrossCutting.Identity.Services;
 using DotNetCoreAppExample.Infra.CrossCutting.Identity.Models.AccountViewModels;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using DotNetCoreAppExample.Application.ViewModels;
 using DotNetCoreAppExample.Application.Interfaces;
 
