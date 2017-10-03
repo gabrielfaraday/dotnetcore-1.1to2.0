@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using DotNetCoreAppExample.Infra.CrossCutting.AspnetFilters;
 using DotNetCoreAppExample.Infra.CrossCutting.LoggerProviders.ElasticSearch;
 using DotNetCoreAppExample.Infra.CrossCutting.LoggerProviders;
+using Microsoft.AspNetCore.Identity;
 
 namespace DotNetCoreAppExample.Web
 {
@@ -36,10 +37,8 @@ namespace DotNetCoreAppExample.Web
 
         public IConfigurationRoot Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -54,6 +53,8 @@ namespace DotNetCoreAppExample.Web
                 options.AddPolicy("PermiteGerenciarTelefones", policy => policy.RequireClaim("Contatos", "GerenciarTelefones"));
             });
 
+            //services.AddAuthentication();
+
             services.AddMvc(options =>
             {
                 options.Filters.Add(new ServiceFilterAttribute(typeof(GlobalExceptionHandlingFilter)));
@@ -67,12 +68,13 @@ namespace DotNetCoreAppExample.Web
             DependencyInjectionBootStrapper.RegisterServices(services);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-            loggerFactory.AddElasticSearchLogger(app.ApplicationServices);
+
+            //PARA HABILITAR O LOG AUTOMATICO NO ELASTIC SEARCH DESCOMENTE A LINHA ABAIXO:
+            //loggerFactory.AddElasticSearchLogger(app.ApplicationServices);
 
             if (env.IsDevelopment())
             {
@@ -87,9 +89,7 @@ namespace DotNetCoreAppExample.Web
             }
 
             app.UseStaticFiles();
-            app.UseIdentity();
-
-            // Add external authentication middleware below. To configure them please see https://go.microsoft.com/fwlink/?LinkID=532715
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

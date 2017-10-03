@@ -7,12 +7,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using DotNetCoreAppExample.Infra.CrossCutting.Identity.Models;
 using DotNetCoreAppExample.Infra.CrossCutting.Identity.Services;
 using DotNetCoreAppExample.Infra.CrossCutting.Identity.Models.AccountViewModels;
 using DotNetCoreAppExample.Application.ViewModels;
 using DotNetCoreAppExample.Application.Interfaces;
+using Microsoft.AspNetCore.Authentication;
+using System.Collections.Generic;
 
 namespace DotNetCoreAppExample.Web.Controllers
 {
@@ -24,13 +25,11 @@ namespace DotNetCoreAppExample.Web.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
-        private readonly string _externalCookieScheme;
         readonly IUsuarioDadosAppService _usuarioDadosAppService;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            IOptions<IdentityCookieOptions> identityCookieOptions,
             IEmailSender emailSender,
             ISmsSender smsSender,
             ILoggerFactory loggerFactory,
@@ -38,7 +37,6 @@ namespace DotNetCoreAppExample.Web.Controllers
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _externalCookieScheme = identityCookieOptions.Value.ExternalCookieAuthenticationScheme;
             _emailSender = emailSender;
             _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
@@ -52,7 +50,7 @@ namespace DotNetCoreAppExample.Web.Controllers
         public async Task<IActionResult> Login(string returnUrl = null)
         {
             // Clear the existing external cookie to ensure a clean login process
-            await HttpContext.Authentication.SignOutAsync(_externalCookieScheme);
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
             ViewData["ReturnUrl"] = returnUrl;
             return View();
@@ -114,52 +112,66 @@ namespace DotNetCoreAppExample.Web.Controllers
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
+
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-
-                user.Claims.Add(new IdentityUserClaim<string> { ClaimType = "Contatos", ClaimValue = "Ver" });
-                user.Claims.Add(new IdentityUserClaim<string> { ClaimType = "Contatos", ClaimValue = "Gerenciar" });
-                user.Claims.Add(new IdentityUserClaim<string> { ClaimType = "Contatos", ClaimValue = "GerenciarTelefones" });
 
                 var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
                 {
-                    var usuarioDados = new UsuarioDadosViewModel
+                    result = await _userManager.AddClaimsAsync(user, new List<Claim>
                     {
-                        Id = Guid.Parse(user.Id),
-                        Nome = model.Nome,
-                        CPF = model.CPF
-                    };
+                        new Claim(type:"Contatos", value:"Ver"),
+                        new Claim(type:"Contatos", value:"Gerenciar"),
+                        new Claim(type:"Contatos", value:"GerenciarTelefones")
+                    });
 
-                    var retorno = _usuarioDadosAppService.Add(usuarioDados);
-
-                    if (!retorno.ValidationResult.IsValid)
+                    if (result.Succeeded)
                     {
-                        retorno
-                            .ValidationResult
-                            .Errors.ToList()
-                            .ForEach(e => ModelState.AddModelError(string.Empty, e.ErrorMessage));
+                        var usuarioDados = new UsuarioDadosViewModel
+                        {
+                            Id = Guid.Parse(user.Id),
+                            Nome = model.Nome,
+                            CPF = model.CPF
+                        };
 
-                        await _userManager.DeleteAsync(user);
-                        return View(model);
+                        var retorno = _usuarioDadosAppService.Add(usuarioDados);
+
+                        if (!retorno.ValidationResult.IsValid)
+                        {
+                            retorno
+                                .ValidationResult
+                                .Errors.ToList()
+                                .ForEach(e => ModelState.AddModelError(string.Empty, e.ErrorMessage));
+
+                            await _userManager.DeleteAsync(user);
+                            return View(model);
+                        }
+
+                        // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
+                        // Send an email with this link
+                        //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                        //var callbackUrl = Url.Action(nameof(ConfirmEmail), "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
+                        //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
+                        //    $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
+                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        _logger.LogInformation(3, "User created a new account with password.");
+                        return RedirectToLocal(returnUrl);
                     }
-
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
-                    // Send an email with this link
-                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    //var callbackUrl = Url.Action(nameof(ConfirmEmail), "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-                    //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
-                    //    $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    _logger.LogInformation(3, "User created a new account with password.");
-                    return RedirectToLocal(returnUrl);
+                    else
+                    {
+                        await _userManager.DeleteAsync(user);
+                        AddErrors(result);
+                    }
                 }
-                AddErrors(result);
+                else
+                {
+                    AddErrors(result);
+                }
             }
 
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 

@@ -13,6 +13,7 @@ using DotNetCoreAppExample.Infra.CrossCutting.Identity.Authorization;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
+using System.Collections.Generic;
 
 namespace DotNetCoreAppExample.Services.Api.Controllers
 {
@@ -53,33 +54,43 @@ namespace DotNetCoreAppExample.Services.Api.Controllers
 
             var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
 
-            user.Claims.Add(new IdentityUserClaim<string> { ClaimType = "Contatos", ClaimValue = "Ver" });
-            user.Claims.Add(new IdentityUserClaim<string> { ClaimType = "Contatos", ClaimValue = "Gerenciar" });
-            user.Claims.Add(new IdentityUserClaim<string> { ClaimType = "Contatos", ClaimValue = "GerenciarTelefones" });
-
             var result = await _userManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
             {
-                var usuarioDados = new UsuarioDadosViewModel
+                result = await _userManager.AddClaimsAsync(user, new List<Claim>
                 {
-                    Id = Guid.Parse(user.Id),
-                    Nome = model.Nome,
-                    CPF = model.CPF
-                };
+                    new Claim(type:"Contatos", value:"Ver"),
+                    new Claim(type:"Contatos", value:"Gerenciar"),
+                    new Claim(type:"Contatos", value:"GerenciarTelefones")
+                });
 
-                var retorno = _usuarioDadosAppService.Add(usuarioDados);
-
-                if (!retorno.ValidationResult.IsValid)
+                if (result.Succeeded)
                 {
-                    await _userManager.DeleteAsync(user);
-                    return Response(viewModel: retorno, result: null);
+                    var usuarioDados = new UsuarioDadosViewModel
+                    {
+                        Id = Guid.Parse(user.Id),
+                        Nome = model.Nome,
+                        CPF = model.CPF
+                    };
+
+                    var retorno = _usuarioDadosAppService.Add(usuarioDados);
+
+                    if (!retorno.ValidationResult.IsValid)
+                    {
+                        await _userManager.DeleteAsync(user);
+                        return Response(viewModel: retorno, result: null);
+                    }
+
+                    _logger.LogInformation(1, "Usuario criado com sucesso!");
+
+                    var response = GerarTokenUsuario(new LoginViewModel { Email = model.Email, Password = model.Password });
+                    return Response(viewModel: null, result: response);
                 }
 
-                _logger.LogInformation(1, "Usuario criado com sucesso!");
-
-                var response = GerarTokenUsuario(new LoginViewModel { Email = model.Email, Password = model.Password });
-                return Response(viewModel: null, result: response);
+                await _userManager.DeleteAsync(user);
+                AdicionarErrosIdentity(result);
+                return Response();
             }
 
             AdicionarErrosIdentity(result);
